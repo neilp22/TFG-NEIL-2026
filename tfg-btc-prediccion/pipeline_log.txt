@@ -1,0 +1,24 @@
+2026-03-06 12:33:05,096 [INFO] ==================================================
+2026-03-06 12:33:05,096 [INFO] Iniciando pipeline diario: 2026-03-06 11:33:05.096171+00:00
+2026-03-06 12:33:06,818 [INFO] Precio: OK
+2026-03-06 12:33:06,993 [ERROR] CryptoPanic: FALLO -- 404 Client Error: Not Found for url: https://cryptopanic.com/api/v1/posts/?auth_token=2eu73oo1Aj5Ll6lBjjl5fBV0mgd4zMW7jRWf6u2WIVhJj&currencies=BTC&kind=news&page=1&public=true
+2026-03-06 12:33:06,996 [INFO] Reddit PRAW: omitido (sin credenciales)
+2026-03-06 12:33:07,825 [INFO] Fear & Greed: OK
+2026-03-06 12:33:10,745 [INFO] HTTP Request: HEAD https://huggingface.co/ProsusAI/finbert/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-06 12:33:10,746 [WARNING] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-06 12:33:10,775 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ProsusAI/finbert/4556d13015211d73dccd3fdd39d39232506f3e43/config.json "HTTP/1.1 200 OK"
+2026-03-06 12:33:10,928 [INFO] HTTP Request: HEAD https://huggingface.co/ProsusAI/finbert/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-03-06 12:33:11,077 [INFO] HTTP Request: GET https://huggingface.co/api/models/ProsusAI/finbert "HTTP/1.1 200 OK"
+2026-03-06 12:33:11,280 [INFO] HTTP Request: GET https://huggingface.co/api/models/ProsusAI/finbert/commits/main "HTTP/1.1 200 OK"
+2026-03-06 12:33:11,436 [INFO] HTTP Request: GET https://huggingface.co/api/models/ProsusAI/finbert/discussions?p=0 "HTTP/1.1 200 OK"
+2026-03-06 12:33:11,464 [INFO] HTTP Request: GET https://huggingface.co/api/models/ProsusAI/finbert/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-06 12:33:11,595 [INFO] HTTP Request: GET https://huggingface.co/api/models/ProsusAI/finbert/commits/refs%2Fpr%2F29 "HTTP/1.1 200 OK"
+2026-03-06 12:33:11,615 [INFO] HTTP Request: GET https://huggingface.co/api/models/ProsusAI/finbert/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-06 12:33:11,738 [INFO] HTTP Request: HEAD https://huggingface.co/ProsusAI/finbert/resolve/refs%2Fpr%2F29/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-03-06 12:33:11,889 [INFO] HTTP Request: HEAD https://huggingface.co/ProsusAI/finbert/resolve/refs%2Fpr%2F29/model.safetensors "HTTP/1.1 302 Found"
+2026-03-06 12:33:12,036 [INFO] FinBERT: 0 textos procesados
+2026-03-06 12:33:12,558 [INFO] Feature builder: OK
+2026-03-06 12:33:12,558 [WARNING] Pipeline completado con errores en: ['cryptopanic']
+2026-03-06 12:33:12,560 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-03-06 12:33:12,560 [INFO] Added job "run_daily_pipeline" to job store "default"
+2026-03-06 12:33:12,560 [INFO] Scheduler started
