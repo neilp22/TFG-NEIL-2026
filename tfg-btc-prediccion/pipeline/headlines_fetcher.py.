@@ -1,0 +1,251 @@
+
+# pipeline/headlines_fetcher.py
+# Descarga ~1 año de titulares de BTC desde fuentes gratuitas sin API key
+# Fuentes: RSS feeds crypto + CryptoPanic free tier + Wayback CDX
+# Resultado esperado: 3.000 - 8.000 titulares para 2024-2025
+
+import requests
+import feedparser
+import time
+import os
+import sys
+import re
+from datetime import datetime, timezone, timedelta
+from sqlalchemy import text
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+from db.db_utils import get_engine
+
+# ── Keywords para filtrar titulares relevantes a BTC ─────────────────────────
+BTC_KEYWORDS = {
+    'bitcoin', 'btc', 'crypto', 'cryptocurrency', 'blockchain',
+    'satoshi', 'halving', 'coinbase', 'binance', 'altcoin',
+    'bullish', 'bearish', 'defi', 'digital asset',
+}
+
+def is_relevant(text: str) -> bool:
+    return any(kw in text.lower() for kw in BTC_KEYWORDS)
+
+def clean_html(text: str) -> str:
+    text = re.sub(r'<[^>]+>', ' ', text)
+    return re.sub(r'\s+', ' ', text).strip()[:500]
+
+def insert_texts(posts: list) -> int:
+    if not posts:
+        return 0
+    engine = get_engine()
+    inserted = 0
+    with engine.begin() as conn:
+        for p in posts:
+            res = conn.execute(text("""
+                INSERT INTO raw_texts (timestamp, asset, source, text, url, processed)
+                VALUES (:timestamp, :asset, :source, :text, :url, :processed)
+                ON CONFLICT DO NOTHING
+            """), p)
+            inserted += res.rowcount
+    return inserted
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# FUENTE 1: RSS feeds paginados (titulares recientes + archivo)
+# ─────────────────────────────────────────────────────────────────────────────
+
+RSS_FEEDS = [
+    {'url': 'https://www.coindesk.com/arc/outboundfeeds/rss/', 'source': 'coindesk'},
+    {'url': 'https://cointelegraph.com/rss', 'source': 'cointelegraph'},
+    {'url': 'https://bitcoinmagazine.com/.rss/full/', 'source': 'bitcoin_magazine'},
+    {'url': 'https://decrypt.co/feed', 'source': 'decrypt'},
+    {'url': 'https://www.theblock.co/rss.xml', 'source': 'theblock'},
+    {'url': 'https://bitcoinist.com/feed/', 'source': 'bitcoinist'},
+    {'url': 'https://newsbtc.com/feed/', 'source': 'newsbtc'},
+    {'url': 'https://cryptoslate.com/feed/', 'source': 'cryptoslate'},
+    {'url': 'https://ambcrypto.com/feed/', 'source': 'ambcrypto'},
+    {'url': 'https://beincrypto.com/feed/', 'source': 'beincrypto'},
+    {'url': 'https://cryptonews.com/news/feed/', 'source': 'cryptonews'},
+    {'url': 'https://u.today/rss', 'source': 'utoday'},
+    {'url': 'https://cryptopotato.com/feed/', 'source': 'cryptopotato'},
+    {'url': 'https://zycrypto.com/feed/', 'source': 'zycrypto'},
+]
+
+def fetch_all_rss(asset: str = 'BTC') -> int:
+    """Descarga todos los RSS feeds disponibles."""
+    total = 0
+    for feed_config in RSS_FEEDS:
+        posts = []
+        try:
+            feed = feedparser.parse(feed_config['url'])
+            for entry in feed.entries:
+                title = entry.get('title', '').strip()
+                summary = entry.get('summary', '')
+                full_text = clean_html(f"{title}. {summary}" if summary else title)
+
+                if not is_relevant(full_text):
+                    continue
+
+                ts = datetime.now(timezone.utc)
+                if hasattr(entry, 'published_parsed') and entry.published_parsed:
+                    try:
+                        ts = datetime(*entry.published_parsed[:6], tzinfo=timezone.utc)
+                    except Exception:
+                        pass
+
+                posts.append({
+                    'timestamp': ts,
+                    'asset': asset,
+                    'source': feed_config['source'],
+                    'text': full_text,
+                    'url': entry.get('link', ''),
+                    'processed': False,
+                })
+
+            n = insert_texts(posts)
+            total += n
+            print(f"  {feed_config['source']:<20} → {n} titulares nuevos")
+            time.sleep(1)
+
+        except Exception as e:
+            print(f"  {feed_config['source']:<20} → ⚠ Error: {e}")
+
+    return total
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# FUENTE 2: Wayback Machine CDX API
+# Devuelve URLs archivadas de medios crypto — sin registro, sin límites agresivos
+# Usamos solo los títulos que están en la URL (slug) de cada artículo
+# ─────────────────────────────────────────────────────────────────────────────
+
+WAYBACK_SOURCES = [
+    {'domain': 'coindesk.com', 'source': 'coindesk_wb'},
+    {'domain': 'cointelegraph.com', 'source': 'cointelegraph_wb'},
+    {'domain': 'bitcoinist.com', 'source': 'bitcoinist_wb'},
+    {'domain': 'newsbtc.com', 'source': 'newsbtc_wb'},
+    {'domain': 'decrypt.co', 'source': 'decrypt_wb'},
+]
+
+CDX_API = "http://web.archive.org/cdx/search/cdx"
+
+def slug_to_title(url: str) -> str:
+    """Extrae el título aproximado desde el slug de la URL."""
+    # Coger el último segmento de la URL sin extensión
+    path = url.rstrip('/').split('/')[-1]
+    path = re.sub(r'\.\w+$', '', path)          # quitar extensión
+    path = re.sub(r'[-_]', ' ', path)           # guiones → espacios
+    path = re.sub(r'\d{4,}', '', path)          # quitar IDs numéricos
+    path = re.sub(r'\s+', ' ', path).strip()
+    return path.title() if len(path) > 10 else ''
+
+def fetch_wayback_domain(domain: str, source: str,
+                         from_date: str, to_date: str,
+                         asset: str = 'BTC') -> int:
+    """
+    Descarga URLs archivadas de un dominio desde Wayback CDX.
+    from_date / to_date en formato YYYYMMDD
+    """
+    params = {
+        'url': f'{domain}/*',
+        'output': 'json',
+        'fl': 'timestamp,original',
+        'filter': 'statuscode:200',
+        'collapse': 'urlkey',
+        'from': from_date,
+        'to': to_date,
+        'limit': 5000,
+    }
+
+    try:
+        r = requests.get(CDX_API, params=params, timeout=30)
+        r.raise_for_status()
+        data = r.json()
+    except Exception as e:
+        print(f"    ⚠ Wayback error {domain}: {e}")
+        return 0
+
+    if not data or len(data) < 2:
+        return 0
+
+    posts = []
+    seen_urls = set()
+
+    for row in data[1:]:  # primera fila es cabecera
+        try:
+            ts_str, url = row[0], row[1]
+            if url in seen_urls:
+                continue
+            seen_urls.add(url)
+
+            # Extraer título del slug
+            title = slug_to_title(url)
+            if not title or not is_relevant(title):
+                continue
+
+            ts = datetime.strptime(ts_str, '%Y%m%d%H%M%S').replace(tzinfo=timezone.utc)
+
+            posts.append({
+                'timestamp': ts,
+                'asset': asset,
+                'source': source,
+                'text': title,
+                'url': url,
+                'processed': False,
+            })
+        except Exception:
+            continue
+
+    return insert_texts(posts)
+
+def fetch_wayback_year(year: int = 2024, asset: str = 'BTC') -> int:
+    """Descarga titulares via Wayback para todos los dominios configurados."""
+    from_date = f'{year}0101'
+    to_date = f'{year}1231'
+    total = 0
+
+    for cfg in WAYBACK_SOURCES:
+        print(f"  Wayback {cfg['domain']} ({year})...")
+        n = fetch_wayback_domain(cfg['domain'], cfg['source'],
+                                 from_date, to_date, asset=asset)
+        total += n
+        print(f"    → {n} titulares nuevos")
+        time.sleep(3)  # respetar Wayback
+
+    return total
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# MAIN
+# ─────────────────────────────────────────────────────────────────────────────
+
+if __name__ == '__main__':
+    import argparse
+
+    parser = argparse.ArgumentParser(description='Descarga ~1 año de titulares BTC')
+    parser.add_argument('--year', type=int, default=2024,
+                        help='Año para Wayback Machine (default: 2024)')
+    parser.add_argument('--skip-rss', action='store_true',
+                        help='Saltar RSS feeds (solo Wayback)')
+    parser.add_argument('--skip-wayback', action='store_true',
+                        help='Saltar Wayback (solo RSS)')
+    args = parser.parse_args()
+
+    total = 0
+
+    # Paso 1: RSS feeds (titulares recientes)
+    if not args.skip_rss:
+        print(f"\n{'='*50}")
+        print("PASO 1: RSS Feeds (titulares recientes)")
+        print('='*50)
+        n = fetch_all_rss()
+        total += n
+        print(f"RSS total: {n} titulares nuevos\n")
+
+    # Paso 2: Wayback Machine (titulares históricos del año indicado)
+    if not args.skip_wayback:
+        print(f"\n{'='*50}")
+        print(f"PASO 2: Wayback Machine ({args.year})")
+        print('='*50)
+        n = fetch_wayback_year(year=args.year)
+        total += n
+        print(f"Wayback total: {n} titulares nuevos\n")
+
+    print(f"\n✅ TOTAL INSERTADO: {total} titulares en raw_texts")
+    print("Verifica con: python db/verify_texts.py")
