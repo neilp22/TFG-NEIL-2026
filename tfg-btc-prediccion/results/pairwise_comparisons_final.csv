@@ -1,0 +1,6 @@
+comparison,test_used,diff_mean,stat,p_value,significant,conclusion
+XGB+FinBERT vs XGB precio,t-test pareado,-0.0222,-1.1748,0.3249,False,Diferencia NO significativa (p=0.325)
+XGB+Morning vs XGB+FinBERT,t-test pareado,0.0335,1.6085,0.2061,False,Diferencia NO significativa (p=0.206)
+XGB+Optuna vs XGB+FinBERT,t-test pareado,0.0373,1.6867,0.1902,False,Diferencia NO significativa (p=0.190)
+LightGBM vs XGB+FinBERT,t-test pareado,0.025,3.1966,0.0495,True,LightGBM es SIGNIFICATIVAMENTE mejor
+XGB+Morning vs XGB precio,t-test pareado,0.0112,0.3153,0.7732,False,Diferencia NO significativa (p=0.773)
