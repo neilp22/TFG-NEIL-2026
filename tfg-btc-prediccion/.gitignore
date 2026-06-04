@@ -1,2 +1,33 @@
+# Entorno y secretos
 .env
+config/.env
 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# macOS
+.DS_Store
+
+# Bases de datos locales
+btc_agent.db
+*.db
+
+# Logs y PIDs del bot
+agente_ia/live_bot.log
+agente_ia/.live_bot.pid
+
+# Backups de templates
+agente_ia/templates/*.bak
+agente_ia/templates/*.bak2
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Entornos virtuales
+venv/
+env/
+.venv/

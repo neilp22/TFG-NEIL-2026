@@ -36,31 +36,27 @@ def load_results():
     """Carga los CSVs de resultados de cada modelo."""
     results = {}
 
-    # ARIMA
-    if os.path.exists('results/arima_metrics.csv'):
-        df = pd.read_csv('results/arima_metrics.csv')
-        results['ARIMA (baseline)'] = df
-    else:
-        print("  ⚠ No encontrado: results/arima_metrics.csv")
+    files = {
+        'ARIMA':              'results/arima_metrics.csv',
+        'XGBoost (precio)':   'results/xgboost_mejorado.csv',
+        'LSTM':               'results/lstm_metrics.csv',
+    }
 
-    # XGBoost — tiene columna model con price_only / price_sentiment
-    if os.path.exists('results/xgboost_mejorado.csv'):
-        df = pd.read_csv('results/xgboost_mejorado.csv')
-        df_price = df[df['model'] == 'price_only']
-        df_sent  = df[df['model'] == 'price_sentiment']
-        if not df_price.empty:
-            results['XGBoost (precio)'] = df_price
-        if not df_sent.empty:
-            results['XGBoost (+sentiment)'] = df_sent
-    else:
-        print("  ⚠ No encontrado: results/xgboost_mejorado.csv")
-
-    # LSTM
-    if os.path.exists('results/lstm_metrics.csv'):
-        df = pd.read_csv('results/lstm_metrics.csv')
-        results['LSTM'] = df
-    else:
-        print("  ⚠ No encontrado: results/lstm_metrics.csv")
+    for name, path in files.items():
+        if os.path.exists(path):
+            df = pd.read_csv(path)
+            # Para XGBoost separar los dos modelos
+            if 'model' in df.columns:
+                df_price = df[df['model'] == 'price_only']
+                df_sent  = df[df['model'] == 'price_sentiment']
+                if not df_price.empty:
+                    results['XGBoost (precio)'] = df_price
+                if not df_sent.empty:
+                    results['XGBoost (precio + sentiment)'] = df_sent
+            else:
+                results[name] = df
+        else:
+            print(f"  ⚠ No encontrado: {path}")
 
     return results
 
@@ -88,7 +84,8 @@ def plot_comparison(results):
     titles    = ['Accuracy', 'F1-Score', 'AUC-ROC']
     baselines = [0.50, 0.50, 0.50]
 
-    colors = [GRAY, BLUE, ACCENT, PURPLE]
+    colors = [GRAY, BLUE, BLUE, ACCENT, PURPLE]
+    colors = colors[:len(models)]
 
     for ax, metric, title, baseline in zip(axes, metrics, titles, baselines):
         means = [summaries[m][f'{metric}_mean'] for m in models]

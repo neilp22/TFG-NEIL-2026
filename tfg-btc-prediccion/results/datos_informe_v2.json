@@ -1,0 +1,773 @@
+{
+  "fecha_extraccion": "2026-05-23",
+  "corpus": {
+    "fuentes": [
+      {
+        "source": "kaggle_btc_news_sentiments",
+        "n_textos": 40820,
+        "fecha_min": "2011-06-16",
+        "fecha_max": "2024-03-15"
+      },
+      {
+        "source": "news_csv_2025",
+        "n_textos": 32220,
+        "fecha_min": "2025-07-17",
+        "fecha_max": "2025-11-23"
+      },
+      {
+        "source": "kaggle_btc_2021_2024",
+        "n_textos": 10081,
+        "fecha_min": "2021-11-05",
+        "fecha_max": "2024-09-12"
+      },
+      {
+        "source": "gdelt_2025",
+        "n_textos": 9325,
+        "fecha_min": "2025-01-01",
+        "fecha_max": "2025-12-31"
+      },
+      {
+        "source": "gdelt_2024",
+        "n_textos": 7791,
+        "fecha_min": "2024-05-09",
+        "fecha_max": "2025-01-01"
+      },
+      {
+        "source": "gdelt_2026",
+        "n_textos": 2303,
+        "fecha_min": "2026-01-01",
+        "fecha_max": "2026-03-03"
+      },
+      {
+        "source": "decrypt",
+        "n_textos": 85,
+        "fecha_min": "2025-12-29",
+        "fecha_max": "2026-04-17"
+      },
+      {
+        "source": "utoday",
+        "n_textos": 57,
+        "fecha_min": "2026-04-12",
+        "fecha_max": "2026-04-17"
+      },
+      {
+        "source": "rss_decrypt",
+        "n_textos": 43,
+        "fecha_min": "2025-12-29",
+        "fecha_max": "2026-03-05"
+      },
+      {
+        "source": "cointelegraph",
+        "n_textos": 41,
+        "fecha_min": "2026-04-17",
+        "fecha_max": "2026-04-17"
+      },
+      {
+        "source": "coindesk",
+        "n_textos": 34,
+        "fecha_min": "2026-04-16",
+        "fecha_max": "2026-04-17"
+      },
+      {
+        "source": "cryptopotato",
+        "n_textos": 29,
+        "fecha_min": "2026-04-15",
+        "fecha_max": "2026-04-17"
+      },
+      {
+        "source": "theblock",
+        "n_textos": 20,
+        "fecha_min": "2026-04-16",
+        "fecha_max": "2026-04-17"
+      },
+      {
+        "source": "cryptonews",
+        "n_textos": 20,
+        "fecha_min": "2026-04-15",
+        "fecha_max": "2026-04-17"
+      },
+      {
+        "source": "rss_coindesk",
+        "n_textos": 18,
+        "fecha_min": "2026-03-05",
+        "fecha_max": "2026-03-05"
+      },
+      {
+        "source": "rss_cointelegraph",
+        "n_textos": 16,
+        "fecha_min": "2026-03-05",
+        "fecha_max": "2026-03-05"
+      },
+      {
+        "source": "bitcoinist",
+        "n_textos": 16,
+        "fecha_min": "2026-04-17",
+        "fecha_max": "2026-04-17"
+      },
+      {
+        "source": "zycrypto",
+        "n_textos": 11,
+        "fecha_min": "2026-04-16",
+        "fecha_max": "2026-04-17"
+      },
+      {
+        "source": "beincrypto",
+        "n_textos": 11,
+        "fecha_min": "2026-04-17",
+        "fecha_max": "2026-04-17"
+      },
+      {
+        "source": "rss_bitcoinmagazine",
+        "n_textos": 10,
+        "fecha_min": "2026-03-04",
+        "fecha_max": "2026-03-05"
+      },
+      {
+        "source": "rss_newsbtc",
+        "n_textos": 10,
+        "fecha_min": "2026-03-05",
+        "fecha_max": "2026-03-06"
+      },
+      {
+        "source": "bitcoin_magazine",
+        "n_textos": 10,
+        "fecha_min": "2026-04-16",
+        "fecha_max": "2026-04-17"
+      },
+      {
+        "source": "newsbtc",
+        "n_textos": 9,
+        "fecha_min": "2026-04-17",
+        "fecha_max": "2026-04-17"
+      },
+      {
+        "source": "cryptoslate",
+        "n_textos": 8,
+        "fecha_min": "2026-04-16",
+        "fecha_max": "2026-04-17"
+      },
+      {
+        "source": "rss_cryptoslate",
+        "n_textos": 8,
+        "fecha_min": "2026-03-04",
+        "fecha_max": "2026-03-05"
+      },
+      {
+        "source": "ambcrypto",
+        "n_textos": 6,
+        "fecha_min": "2026-04-17",
+        "fecha_max": "2026-04-17"
+      },
+      {
+        "source": "gdelt_2023",
+        "n_textos": 3,
+        "fecha_min": "2023-06-03",
+        "fecha_max": "2023-06-03"
+      }
+    ],
+    "total_textos": 103005,
+    "n_fuentes": 27,
+    "modelos_sentimiento": [
+      {
+        "model_used": "ProsusAI/finbert",
+        "n": 92921,
+        "avg_score": 0.0519,
+        "std_score": 0.5743,
+        "min_score": -0.9694,
+        "max_score": 0.9476
+      },
+      {
+        "model_used": "kaggle_precomputed",
+        "n": 10081,
+        "avg_score": -0.2822,
+        "std_score": 0.9353,
+        "min_score": -1.0,
+        "max_score": 0.9995
+      }
+    ],
+    "distribucion_horaria": [
+      {
+        "hora": 0.0,
+        "n": 1927
+      },
+      {
+        "hora": 1.0,
+        "n": 19303
+      },
+      {
+        "hora": 2.0,
+        "n": 25690
+      },
+      {
+        "hora": 3.0,
+        "n": 1326
+      },
+      {
+        "hora": 4.0,
+        "n": 1355
+      },
+      {
+        "hora": 5.0,
+        "n": 1608
+      },
+      {
+        "hora": 6.0,
+        "n": 1792
+      },
+      {
+        "hora": 7.0,
+        "n": 1897
+      },
+      {
+        "hora": 8.0,
+        "n": 2255
+      },
+      {
+        "hora": 9.0,
+        "n": 2303
+      },
+      {
+        "hora": 10.0,
+        "n": 2666
+      },
+      {
+        "hora": 11.0,
+        "n": 3003
+      },
+      {
+        "hora": 12.0,
+        "n": 3228
+      },
+      {
+        "hora": 13.0,
+        "n": 3229
+      },
+      {
+        "hora": 14.0,
+        "n": 3601
+      },
+      {
+        "hora": 15.0,
+        "n": 4070
+      },
+      {
+        "hora": 16.0,
+        "n": 3543
+      },
+      {
+        "hora": 17.0,
+        "n": 3466
+      },
+      {
+        "hora": 18.0,
+        "n": 3391
+      },
+      {
+        "hora": 19.0,
+        "n": 2898
+      },
+      {
+        "hora": 20.0,
+        "n": 2898
+      },
+      {
+        "hora": 21.0,
+        "n": 2544
+      },
+      {
+        "hora": 22.0,
+        "n": 2721
+      },
+      {
+        "hora": 23.0,
+        "n": 2291
+      }
+    ],
+    "n_timestamps_fantasma": 449
+  },
+  "dataset": {
+    "n_observaciones": 2592,
+    "fecha_inicio": "2019-01-30",
+    "fecha_fin": "2026-03-05",
+    "balance_clases": {
+      "alcistas": 1324,
+      "bajistas": 1268,
+      "pct_alcistas": 51.08
+    },
+    "cobertura_sentimiento": {
+      "dias_con_finbert": 2511,
+      "pct_cobertura": 96.9,
+      "dias_sin_finbert": 81
+    },
+    "estadisticas": {
+      "sentiment_finbert_mean": 0.018,
+      "sentiment_finbert_std": 0.1946,
+      "fear_greed_mean": 48.59,
+      "returns_mean": 0.001172,
+      "returns_std": 0.033387,
+      "volatilidad_anualizada_pct": 53.0
+    },
+    "validacion_target": {
+      "corr_returns_label": -0.0725,
+      "corr_returns_shifted_label": 0.6562,
+      "leakage_detectado": false
+    }
+  },
+  "resultados_modelos": {
+    "XGB_precio": {
+      "display_name": "XGB precio",
+      "auc_per_split": [
+        0.524,
+        0.4696,
+        0.527,
+        0.547
+      ],
+      "auc_mean": 0.5169,
+      "auc_std": 0.0331,
+      "ic95": [
+        0.4844,
+        0.5494
+      ],
+      "acc_mean": 0.5167,
+      "acc_std": 0.0213,
+      "f1_mean": 0.4559,
+      "p_value_vs_azar": 0.3781,
+      "periodo_test": "2025-03-12 → 2026-03-06",
+      "n_splits": 4
+    },
+    "XGB_FinBERT": {
+      "display_name": "XGB+FinBERT",
+      "auc_per_split": [
+        0.51,
+        0.4943,
+        0.4948,
+        0.4801
+      ],
+      "auc_mean": 0.4948,
+      "auc_std": 0.0122,
+      "ic95": [
+        0.4828,
+        0.5068
+      ],
+      "acc_mean": 0.4972,
+      "acc_std": 0.0687,
+      "f1_mean": 0.4344,
+      "p_value_vs_azar": 0.4546,
+      "periodo_test": "2025-03-12 → 2026-03-06",
+      "n_splits": 4
+    },
+    "XGB_Morning": {
+      "display_name": "XGB+Morning",
+      "auc_per_split": [
+        0.535,
+        0.5817,
+        0.4824,
+        0.5138
+      ],
+      "auc_mean": 0.5282,
+      "auc_std": 0.0417,
+      "ic95": [
+        0.4874,
+        0.5691
+      ],
+      "acc_mean": 0.5028,
+      "acc_std": 0.0246,
+      "f1_mean": 0.4324,
+      "p_value_vs_azar": 0.2706,
+      "periodo_test": "2025-03-12 → 2026-03-06",
+      "n_splits": 4
+    },
+    "XGB_Optuna": {
+      "display_name": "XGB+Optuna",
+      "auc_per_split": [
+        0.593,
+        0.5353,
+        0.472,
+        0.5285
+      ],
+      "auc_mean": 0.5322,
+      "auc_std": 0.0495,
+      "ic95": [
+        0.4837,
+        0.5807
+      ],
+      "acc_mean": 0.5028,
+      "acc_std": 0.0331,
+      "f1_mean": 0.5325,
+      "p_value_vs_azar": 0.2865,
+      "periodo_test": "2025-03-11 → 2026-03-05",
+      "n_splits": 4,
+      "brier_score": 0.2543,
+      "log_loss": 0.7025
+    },
+    "LightGBM": {
+      "display_name": "LightGBM",
+      "auc_per_split": [
+        0.5325,
+        0.5007,
+        0.5398,
+        0.5065
+      ],
+      "auc_mean": 0.5199,
+      "auc_std": 0.0192,
+      "ic95": [
+        0.5011,
+        0.5387
+      ],
+      "acc_mean": 0.5139,
+      "acc_std": 0.0319,
+      "f1_mean": 0.5419,
+      "p_value_vs_azar": 0.1312,
+      "periodo_test": "2025-03-11 → 2026-03-05",
+      "n_splits": 4,
+      "brier_score": 0.2747,
+      "log_loss": 0.7535
+    },
+    "LSTM": {
+      "display_name": "LSTM",
+      "auc_per_split": [
+        0.4548,
+        0.5714,
+        0.6027,
+        0.4152,
+        0.4486
+      ],
+      "auc_mean": 0.4985,
+      "auc_std": 0.0829,
+      "ic95": [
+        0.4258,
+        0.5712
+      ],
+      "acc_mean": 0.5067,
+      "f1_mean": 0.3911,
+      "n_splits": 5
+    },
+    "ARIMA": {
+      "display_name": "ARIMA",
+      "auc_per_split": [
+        0.5124,
+        0.49,
+        0.4654,
+        0.4766,
+        0.4821
+      ],
+      "auc_mean": 0.4853,
+      "auc_std": 0.0176,
+      "ic95": [
+        0.4699,
+        0.5007
+      ],
+      "acc_mean": 0.4733,
+      "f1_mean": 0.5923,
+      "n_splits": 5
+    }
+  },
+  "tests_estadisticos": {
+    "vs_azar_XGB_precio": {
+      "modelo": "XGB precio",
+      "n_splits": 4,
+      "auc_mean": 0.5169,
+      "auc_std": 0.0331,
+      "ic_95": [
+        0.4844,
+        0.5494
+      ],
+      "t_stat": 1.0198,
+      "p_value": 0.3829,
+      "significativo": false
+    },
+    "vs_azar_XGB_FinBERT": {
+      "modelo": "XGB+FinBERT",
+      "n_splits": 4,
+      "auc_mean": 0.4948,
+      "auc_std": 0.0122,
+      "ic_95": [
+        0.4828,
+        0.5068
+      ],
+      "t_stat": -0.8516,
+      "p_value": 0.457,
+      "significativo": false
+    },
+    "vs_azar_XGB_Morning": {
+      "modelo": "XGB+Morning",
+      "n_splits": 4,
+      "auc_mean": 0.5282,
+      "auc_std": 0.0417,
+      "ic_95": [
+        0.4874,
+        0.5691
+      ],
+      "t_stat": 1.3541,
+      "p_value": 0.2687,
+      "significativo": false
+    },
+    "vs_azar_XGB_Optuna": {
+      "modelo": "XGB+Optuna",
+      "n_splits": 4,
+      "auc_mean": 0.5322,
+      "auc_std": 0.0495,
+      "ic_95": [
+        0.4837,
+        0.5807
+      ],
+      "t_stat": 1.3016,
+      "p_value": 0.284,
+      "significativo": false
+    },
+    "vs_azar_LightGBM": {
+      "modelo": "LightGBM",
+      "n_splits": 4,
+      "auc_mean": 0.5199,
+      "auc_std": 0.0192,
+      "ic_95": [
+        0.5011,
+        0.5387
+      ],
+      "t_stat": 2.0731,
+      "p_value": 0.1299,
+      "significativo": false
+    },
+    "vs_azar_LSTM": {
+      "modelo": "LSTM",
+      "n_splits": 5,
+      "auc_mean": 0.4985,
+      "auc_std": 0.0829,
+      "ic_95": [
+        0.4258,
+        0.5712
+      ],
+      "t_stat": -0.0394,
+      "p_value": 0.9705,
+      "significativo": false
+    },
+    "vs_azar_ARIMA": {
+      "modelo": "ARIMA",
+      "n_splits": 5,
+      "auc_mean": 0.4853,
+      "auc_std": 0.0176,
+      "ic_95": [
+        0.4699,
+        0.5007
+      ],
+      "t_stat": -1.8681,
+      "p_value": 0.1351,
+      "significativo": false
+    },
+    "pareado_XGB_FinBERT_vs_XGB_precio": {
+      "comparacion": "XGB+FinBERT vs XGB precio",
+      "test": "t-test pareado",
+      "diff_mean": -0.0221,
+      "stat": -1.1588,
+      "p_value": 0.3304,
+      "significativo": false
+    },
+    "pareado_XGB_Morning_vs_XGB_precio": {
+      "comparacion": "XGB+Morning vs XGB precio",
+      "test": "t-test pareado",
+      "diff_mean": 0.0113,
+      "stat": 0.3175,
+      "p_value": 0.7717,
+      "significativo": false
+    },
+    "pareado_XGB_Optuna_vs_XGB_precio": {
+      "comparacion": "XGB+Optuna vs XGB precio",
+      "test": "t-test pareado",
+      "diff_mean": 0.0153,
+      "stat": 0.4941,
+      "p_value": 0.6552,
+      "significativo": false
+    },
+    "pareado_LightGBM_vs_XGB_precio": {
+      "comparacion": "LightGBM vs XGB precio",
+      "test": "t-test pareado",
+      "diff_mean": 0.003,
+      "stat": 0.1945,
+      "p_value": 0.8582,
+      "significativo": false
+    },
+    "morning_vs_full_finbert": {
+      "comparacion": "XGB+Morning vs XGB+FinBERT",
+      "test": "t-test pareado",
+      "diff_mean": 0.0334,
+      "splits_morning_gana": 3,
+      "stat": 1.6239,
+      "p_value": 0.2029,
+      "significativo": false
+    },
+    "mann_whitney_sentiment": {
+      "n_alcistas": 1324,
+      "n_bajistas": 1268,
+      "media_alcistas": 0.0147,
+      "media_bajistas": 0.0214,
+      "u_stat": 821316.5,
+      "p_value": 0.342,
+      "significativo": false
+    }
+  },
+  "lag_analysis": {
+    "n_dias_train_fold1": 2225,
+    "lags": [
+      {
+        "lag": 0,
+        "correlation": -0.0155
+      },
+      {
+        "lag": 1,
+        "correlation": -0.0115
+      },
+      {
+        "lag": 2,
+        "correlation": -0.0019
+      },
+      {
+        "lag": 3,
+        "correlation": -0.013
+      },
+      {
+        "lag": 4,
+        "correlation": 0.0132
+      },
+      {
+        "lag": 5,
+        "correlation": 0.0224
+      },
+      {
+        "lag": 6,
+        "correlation": 0.0006
+      },
+      {
+        "lag": 7,
+        "correlation": -0.0155
+      },
+      {
+        "lag": 8,
+        "correlation": 0.0439
+      },
+      {
+        "lag": 9,
+        "correlation": -0.0163
+      },
+      {
+        "lag": 10,
+        "correlation": -0.0067
+      }
+    ],
+    "best_lag": {
+      "lag": 8,
+      "correlation": 0.0439
+    },
+    "nota": "Calculado solo sobre train del primer split — sin data snooping"
+  },
+  "correlaciones_features": {
+    "returns": -0.0725,
+    "bb_lower": -0.0303,
+    "sma_7": -0.0296,
+    "sma_30": -0.0295,
+    "bb_upper": -0.0286,
+    "fear_greed": 0.0246,
+    "sentiment_morning": -0.0185,
+    "sentiment_finbert": -0.0172,
+    "macd_signal": 0.0165,
+    "macd": 0.0063,
+    "rsi_14": -0.0042,
+    "has_sentiment": -0.0028
+  },
+  "backtest": {
+    "modelo": "XGBoost + Optuna",
+    "n_dias_test": 360,
+    "periodo_test": "2025-03-11 → 2026-03-05",
+    "principal_threshold_050": {
+      "threshold": 0.5,
+      "n_dias_test": 360,
+      "n_operaciones": 69,
+      "dias_en_mercado": 205,
+      "pct_dias_en_mercado": 56.9,
+      "retorno_total_estrategia_pct": -13.26,
+      "retorno_total_bnh_pct": -17.83,
+      "sharpe_estrategia": -0.166,
+      "sharpe_bnh": -0.187,
+      "max_drawdown_estrategia_pct": -48.71,
+      "max_drawdown_bnh_pct": -51.71,
+      "capital_final_estrategia": 8674.33,
+      "capital_final_bnh": 8216.86
+    },
+    "por_threshold": {
+      "threshold_0.5": {
+        "threshold": 0.5,
+        "n_dias_test": 360,
+        "n_operaciones": 69,
+        "dias_en_mercado": 205,
+        "pct_dias_en_mercado": 56.9,
+        "retorno_total_estrategia_pct": -13.26,
+        "retorno_total_bnh_pct": -17.83,
+        "sharpe_estrategia": -0.166,
+        "sharpe_bnh": -0.187,
+        "max_drawdown_estrategia_pct": -48.71,
+        "max_drawdown_bnh_pct": -51.71,
+        "capital_final_estrategia": 8674.33,
+        "capital_final_bnh": 8216.86
+      },
+      "threshold_0.55": {
+        "threshold": 0.55,
+        "n_dias_test": 360,
+        "n_operaciones": 29,
+        "dias_en_mercado": 60,
+        "pct_dias_en_mercado": 16.7,
+        "retorno_total_estrategia_pct": -10.46,
+        "retorno_total_bnh_pct": -17.83,
+        "sharpe_estrategia": -0.216,
+        "sharpe_bnh": -0.187,
+        "max_drawdown_estrategia_pct": -32.33,
+        "max_drawdown_bnh_pct": -51.71,
+        "capital_final_estrategia": 8953.66,
+        "capital_final_bnh": 8216.86
+      },
+      "threshold_0.6": {
+        "threshold": 0.6,
+        "n_dias_test": 360,
+        "n_operaciones": 15,
+        "dias_en_mercado": 30,
+        "pct_dias_en_mercado": 8.3,
+        "retorno_total_estrategia_pct": -19.53,
+        "retorno_total_bnh_pct": -17.83,
+        "sharpe_estrategia": -0.734,
+        "sharpe_bnh": -0.187,
+        "max_drawdown_estrategia_pct": -25.6,
+        "max_drawdown_bnh_pct": -51.71,
+        "capital_final_estrategia": 8046.77,
+        "capital_final_bnh": 8216.86
+      },
+      "threshold_0.65": {
+        "threshold": 0.65,
+        "n_dias_test": 360,
+        "n_operaciones": 15,
+        "dias_en_mercado": 22,
+        "pct_dias_en_mercado": 6.1,
+        "retorno_total_estrategia_pct": -24.01,
+        "retorno_total_bnh_pct": -17.83,
+        "sharpe_estrategia": -1.199,
+        "sharpe_bnh": -0.187,
+        "max_drawdown_estrategia_pct": -26.14,
+        "max_drawdown_bnh_pct": -51.71,
+        "capital_final_estrategia": 7598.66,
+        "capital_final_bnh": 8216.86
+      },
+      "threshold_0.7": {
+        "threshold": 0.7,
+        "n_dias_test": 360,
+        "n_operaciones": 6,
+        "dias_en_mercado": 8,
+        "pct_dias_en_mercado": 2.2,
+        "retorno_total_estrategia_pct": -17.81,
+        "retorno_total_bnh_pct": -17.83,
+        "sharpe_estrategia": -0.967,
+        "sharpe_bnh": -0.187,
+        "max_drawdown_estrategia_pct": -19.75,
+        "max_drawdown_bnh_pct": -51.71,
+        "capital_final_estrategia": 8218.73,
+        "capital_final_bnh": 8216.86
+      }
+    }
+  }
+}
