@@ -1,0 +1,30 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# ---- Entorn / secrets ----
+.env
+*.pid
+
+# ---- macOS ----
+.DS_Store
+
+# ---- Logs ----
+*.log
+
+# ---- Artefactes LaTeX ----
+*.aux
+*.fls
+*.fdb_latexmk
+*.out
+*.toc
+*.synctex.gz
+
+# ---- Datasets pesats (no es versionen; es regeneren des de les fonts) ----
+datasets/
+
+# ---- Models entrenats grans (opcional: descomenta si no vols versionar-los) ----
+# tfg-btc-prediccion/models/saved/*.pkl
+# tfg-btc-prediccion/models/saved/*.pt
