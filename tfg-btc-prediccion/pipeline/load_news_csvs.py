@@ -9,15 +9,17 @@
 import pandas as pd
 import os
 import sys
+from pathlib import Path
 from datetime import timezone
 from sqlalchemy import text
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from db.db_utils import get_engine
 
-# ── Rutas de los archivos ─────────────────────────────────────────────────────
-FILE_2021_2024 = "/Users/neilpradasmartinez/Desktop/TFG CODIGO/newd/bitcoin_sentiments_21_24.csv"
-FILE_2025      = "/Users/neilpradasmartinez/Desktop/TFG CODIGO/newd/crypto_sentiment_prediction_dataset.csv"
+# ── Rutas de los archivos (datasets/ a l'arrel del repositori) ────────────────
+_DATASETS = Path(__file__).resolve().parents[2] / 'datasets'
+FILE_2021_2024 = str(_DATASETS / 'bitcoin_sentiments_21_24.csv')
+FILE_2025      = str(_DATASETS / 'crypto_sentiment_prediction_dataset.csv')
 
 # ── Keywords para filtrar que sea relevante a BTC ────────────────────────────
 BTC_KEYWORDS = {

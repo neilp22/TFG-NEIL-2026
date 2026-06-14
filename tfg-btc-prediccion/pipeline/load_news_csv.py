@@ -6,13 +6,15 @@
 
 import sys
 import os
+from pathlib import Path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 import pandas as pd
 from sqlalchemy import text
 from db.db_utils import get_engine
 
-FILE_PATH = '/Users/neilpradasmartinez/Desktop/news.csv'
+# datasets/ a l'arrel del repositori (pipeline/ -> tfg-btc-prediccion/ -> arrel)
+FILE_PATH = str(Path(__file__).resolve().parents[2] / 'datasets' / 'news.csv')
 
 BTC_KEYWORDS = {
     'bitcoin', 'btc', 'crypto', 'cryptocurrency', 'blockchain',
