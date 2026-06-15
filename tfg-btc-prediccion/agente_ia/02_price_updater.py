@@ -454,16 +454,23 @@ def _fetch_intraday(interval: str, limit: int) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def update_ohlcv(engine=None) -> dict:
+def update_ohlcv(engine=None, timeframes=None) -> dict:
     """
-    Descarga 1h/4h/1d desde Binance e inserta en btc_ohlcv.
-    Llama a calculate_and_update_indicators() para calcular técnicos e ICT después.
+    Descarga velas desde Binance y hace upsert en btc_ohlcv.
+    IMPORTANTE: upsert (no DO NOTHING) — la vela en curso ya existe en DB
+    pero su close/high/low cambian hasta que cierra; sin el UPDATE el último
+    precio de la DB se queda congelado y el agente ve un precio desfasado.
+
+    timeframes: iterable opcional ('1h', '4h', ...) para limitar la actualización.
     """
     if engine is None:
         engine = get_engine()
 
+    tf_items = [(tf, cfg) for tf, cfg in _TF_CONFIG.items()
+                if timeframes is None or tf in timeframes]
+
     stats = {}
-    for tf, cfg in _TF_CONFIG.items():
+    for tf, cfg in tf_items:
         df = _fetch_intraday(cfg['interval'], cfg['limit'])
         if df.empty:
             log.warning(f"Sin datos Binance {tf}")
@@ -473,27 +480,33 @@ def update_ohlcv(engine=None) -> dict:
         df['timeframe'] = tf
         rows = df.to_dict('records')
 
-        inserted = 0
+        upserted = 0
         sql = text("""
             INSERT INTO btc_ohlcv (timestamp, timeframe, open, high, low, close, volume)
             VALUES (:timestamp, :timeframe, :open, :high, :low, :close, :volume)
-            ON CONFLICT (timestamp, timeframe) DO NOTHING
+            ON CONFLICT (timestamp, timeframe) DO UPDATE SET
+                open   = EXCLUDED.open,
+                high   = EXCLUDED.high,
+                low    = EXCLUDED.low,
+                close  = EXCLUDED.close,
+                volume = EXCLUDED.volume
         """)
         with engine.begin() as conn:
             for row in rows:
                 try:
                     r = conn.execute(sql, row)
-                    inserted += r.rowcount
+                    upserted += r.rowcount
                 except Exception as e:
-                    log.debug(f"btc_ohlcv insert {tf} {row['timestamp']}: {e}")
+                    log.debug(f"btc_ohlcv upsert {tf} {row['timestamp']}: {e}")
 
-        log.info(f"btc_ohlcv {tf}: {len(rows)} fetched, {inserted} new")
-        stats[tf] = inserted
+        log.info(f"btc_ohlcv {tf}: {len(rows)} fetched, {upserted} upserted")
+        stats[tf] = upserted
 
     # Calcular indicadores e ICT en las filas nuevas/recientes
+    tfs_recalc = tuple(tf for tf, _ in tf_items)
     try:
         from agente_ia.indicators import recalculate_indicators
-        recalculate_indicators(engine)
+        recalculate_indicators(engine, timeframes=tfs_recalc)
     except Exception as e:
         log.warning(f"indicators recalculate: {e}")
         # Intentar import relativo
@@ -505,7 +518,7 @@ def update_ohlcv(engine=None) -> dict:
             )
             _mod = importlib.util.module_from_spec(_spec)
             _spec.loader.exec_module(_mod)
-            _mod.recalculate_indicators(engine)
+            _mod.recalculate_indicators(engine, timeframes=tfs_recalc)
         except Exception as e2:
             log.warning(f"indicators fallback also failed: {e2}")
 

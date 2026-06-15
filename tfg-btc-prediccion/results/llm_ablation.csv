@@ -1,0 +1,3 @@
+,total_return_pct,cagr_pct,sharpe,sortino,max_dd_pct,calmar,profit_factor,win_rate_pct,avg_win_usd,avg_loss_usd,expectancy_usd,n_trades,avg_duration_h,p_value_vs_0,final_capital
+Sin LLM,-1.12,-1.12,0.02,0.03,-15.5,-0.07,0.99,39.3,806.63,-530.45,-4.77,117.0,53.5,0.5263,49442.47
+Con LLM,-5.62,-5.66,-0.34,-0.46,-17.18,-0.33,0.89,35.4,790.81,-489.29,-35.58,79.0,53.7,0.6699,47188.98

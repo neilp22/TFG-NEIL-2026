@@ -2,6 +2,9 @@
 .env
 config/.env
 
+# Notas personales de trabajo
+agente_ia/notas.txt
+
 # Python
 __pycache__/
 *.pyc

@@ -118,7 +118,7 @@ def _get_client():
 def chat(
     user_message: str,
     history: list = None,
-    model: str = "gpt-4o-mini",
+    model: str = "gpt-4o",
     verbose: bool = False,
 ) -> tuple[str, list]:
     """
@@ -200,7 +200,7 @@ def chat(
 def chat_stream(
     user_message: str,
     history: list = None,
-    model: str = "gpt-4o-mini",
+    model: str = "gpt-4o",
 ) -> Generator[str, None, list]:
     """
     Versión streaming de chat(). Yielda tokens de la respuesta final.
@@ -226,13 +226,13 @@ def chat_stream(
             temperature=0.3,
         )
         msg = response.choices[0].message
-        messages.append(msg.model_dump(exclude_none=True))
 
         if not msg.tool_calls:
-            # Respuesta final — re-generar en streaming
-            messages_for_stream = messages[:-1]  # quitar último mensaje assistant
+            # Respuesta final — re-generar en streaming sin incluir este
+            # borrador de respuesta en el contexto (duplicaría el prompt).
             break
 
+        messages.append(msg.model_dump(exclude_none=True))
         for tc in msg.tool_calls:
             fn_name = tc.function.name
             try:
@@ -248,8 +248,6 @@ def chat_stream(
             })
 
         tool_calls_count += len(msg.tool_calls)
-    else:
-        messages_for_stream = messages
 
     # Fase 2: streaming de la respuesta final
     stream = client.chat.completions.create(

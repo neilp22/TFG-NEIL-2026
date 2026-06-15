@@ -168,10 +168,6 @@ def detect_swings(df: pd.DataFrame, n: int = 3) -> pd.DataFrame:
     for i in range(n, len(df) - n):
         h = df['high'].iloc[i]
         l = df['low'].iloc[i]
-        if (h == df['high'].iloc[i-n:i].max() and
-                h == df['high'].iloc[i+1:i+n+1].max() and
-                h > df['high'].iloc[i-n:i].max()):
-            pass  # rewrite below with cleaner logic
         if (h > df['high'].iloc[i-n:i].max() and
                 h > df['high'].iloc[i+1:i+n+1].max()):
             df.at[df.index[i], 'swing_high'] = True
@@ -229,45 +225,43 @@ def detect_bos_choch(df: pd.DataFrame) -> pd.DataFrame:
 
 def detect_fvg(df: pd.DataFrame) -> pd.DataFrame:
     """
-    FVG Bullish:  low[i+1]  > high[i-1]  — gap alcista
-    FVG Bearish:  high[i+1] < low[i-1]   — gap bajista
-    Marcado en la vela central (i).
-    Solo FVGs que aún no han sido mitigados (precio no volvió al gap).
+    FVG Bullish:  low[i+1]  > high[i-1]  — gap alcista (zona [high[i-1], low[i+1]])
+    FVG Bearish:  high[i+1] < low[i-1]   — gap bajista (zona [high[i+1], low[i-1]])
+    Marcado en la vela central (i), con límites reales del gap en fvg_top/fvg_bottom.
+
+    Mitigación (regla ICT de consequent encroachment): el FVG deja de ser válido
+    cuando una vela posterior cruza el punto medio del gap.
     """
     df = df.copy()
     df['fvg_bullish'] = False
     df['fvg_bearish'] = False
+    df['fvg_top']     = np.nan
+    df['fvg_bottom']  = np.nan
 
-    # Registrar gaps activos: lista de (top, bottom, direction)
-    active_gaps = []
-    mitigated   = set()
+    n = len(df)
+    highs = df['high'].to_numpy(dtype=float)
+    lows  = df['low'].to_numpy(dtype=float)
 
-    for i in range(1, len(df) - 1):
-        c = df['close'].iloc[i]
-        h_prev = df['high'].iloc[i-1]
-        l_prev = df['low'].iloc[i-1]
-        h_next = df['high'].iloc[i+1]
-        l_next = df['low'].iloc[i+1]
+    for i in range(1, n - 1):
+        # Bullish: gap entre high de la vela previa y low de la siguiente
+        if lows[i+1] > highs[i-1]:
+            top, bottom = lows[i+1], highs[i-1]
+            mid = (top + bottom) / 2
+            if not (lows[i+2:] <= mid).any():
+                idx = df.index[i]
+                df.at[idx, 'fvg_bullish'] = True
+                df.at[idx, 'fvg_top']     = top
+                df.at[idx, 'fvg_bottom']  = bottom
 
-        # Verificar si algún gap activo está siendo mitigado
-        new_active = []
-        for gap in active_gaps:
-            top, bot, direction = gap
-            if direction == 'bull' and c >= bot:
-                mitigated.add(id(gap))
-            elif direction == 'bear' and c <= top:
-                mitigated.add(id(gap))
-            else:
-                new_active.append(gap)
-        active_gaps = new_active
-
-        if l_next > h_prev:
-            df.at[df.index[i], 'fvg_bullish'] = True
-            active_gaps.append((l_next, h_prev, 'bull'))
-
-        if h_next < l_prev:
-            df.at[df.index[i], 'fvg_bearish'] = True
-            active_gaps.append((l_prev, h_next, 'bear'))
+        # Bearish: gap entre high de la siguiente y low de la previa
+        if highs[i+1] < lows[i-1]:
+            top, bottom = lows[i-1], highs[i+1]
+            mid = (top + bottom) / 2
+            if not (highs[i+2:] >= mid).any():
+                idx = df.index[i]
+                df.at[idx, 'fvg_bearish'] = True
+                df.at[idx, 'fvg_top']     = top
+                df.at[idx, 'fvg_bottom']  = bottom
 
     return df
 
@@ -298,7 +292,7 @@ def detect_order_blocks(df: pd.DataFrame, move_threshold: float = 0.007) -> pd.D
             ob_low = df['low'].iloc[i]
             mitigated = any(
                 df['close'].iloc[j] < ob_low
-                for j in range(i+1, min(i+51, n))
+                for j in range(i+1, n)
             )
             if not mitigated:
                 df.at[df.index[i], 'ob_bullish'] = True
@@ -307,7 +301,7 @@ def detect_order_blocks(df: pd.DataFrame, move_threshold: float = 0.007) -> pd.D
             ob_high = df['high'].iloc[i]
             mitigated = any(
                 df['close'].iloc[j] > ob_high
-                for j in range(i+1, min(i+51, n))
+                for j in range(i+1, n)
             )
             if not mitigated:
                 df.at[df.index[i], 'ob_bearish'] = True
@@ -542,18 +536,26 @@ def get_ict_snapshot(engine, timeframe: str = '1h', n_context: int = 100) -> dic
     fvg_bull = recent[recent['fvg_bullish'] == True]
     fvg_bear = recent[recent['fvg_bearish'] == True]
 
-    fvg_above = [
-        {"top": float(r['high']), "bottom": float(r['low']),
-         "distance_pct": round((float(r['low']) - price) / price * 100, 3)}
-        for _, r in fvg_bear.iterrows()
-        if float(r['low']) > price
-    ]
-    fvg_below = [
-        {"top": float(r['high']), "bottom": float(r['low']),
-         "distance_pct": round((float(r['high']) - price) / price * 100, 3)}
-        for _, r in fvg_bull.iterrows()
-        if float(r['high']) < price
-    ]
+    def _fvg_zone(r):
+        # Límites reales del gap (fvg_top/fvg_bottom); fallback a la vela central
+        # para filas antiguas de DB que no traen las columnas nuevas.
+        top = r.get('fvg_top'); bottom = r.get('fvg_bottom')
+        if top is None or (isinstance(top, float) and math.isnan(top)):
+            top, bottom = float(r['high']), float(r['low'])
+        return float(top), float(bottom)
+
+    fvg_above = []
+    for _, r in fvg_bear.iterrows():
+        top, bottom = _fvg_zone(r)
+        if bottom > price:
+            fvg_above.append({"top": top, "bottom": bottom,
+                              "distance_pct": round((bottom - price) / price * 100, 3)})
+    fvg_below = []
+    for _, r in fvg_bull.iterrows():
+        top, bottom = _fvg_zone(r)
+        if top < price:
+            fvg_below.append({"top": top, "bottom": bottom,
+                              "distance_pct": round((top - price) / price * 100, 3)})
 
     # BOS y CHoCH recientes
     recent_bos_bull = recent[recent['bos_bullish'] == True]

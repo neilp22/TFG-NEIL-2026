@@ -132,7 +132,7 @@ if __name__ == '__main__':
         }
     ]
 
-    for token in agent_mod.chat_stream(QUERY, history=history, model="gpt-4o-mini"):
+    for token in agent_mod.chat_stream(QUERY, history=history, model="gpt-4o"):
         print(token, end='', flush=True)
 
     print(f"\n{SEP}\n")

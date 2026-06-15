@@ -1,0 +1,288 @@
+timestamp,score,direction,decision,reason
+2025-06-20 20:00:00+00:00,-0.319,short,NO_TRADE,Discount zone con intent SHORT y confluence negativa.
+2025-06-25 08:00:00+00:00,0.393,long,NO_TRADE,Premium zone + intent LONG con alta volatilidad y sin refuerzos adicionales.
+2025-06-25 12:00:00+00:00,0.423,long,NO_TRADE,Premium zone + intent LONG con volatilidad extrema.
+2025-06-25 16:00:00+00:00,0.412,long,NO_TRADE,Premium zone + intent LONG y BBW > 8%
+2025-06-25 20:00:00+00:00,0.406,long,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2025-06-26 00:00:00+00:00,0.315,long,NO_TRADE,Premium zone + intent LONG con BBW > 8% indica alto riesgo de whipsaw.
+2025-06-26 04:00:00+00:00,0.308,long,NO_TRADE,Premium zone + intent LONG con BBW > 8% indica alto riesgo de whipsaw.
+2025-07-07 00:00:00+00:00,0.312,long,NO_TRADE,Premium zone + intent LONG con trend ICT en contra.
+2025-07-07 04:00:00+00:00,0.358,long,NO_TRADE,Premium zone + intent LONG y Trend ICT en CONTRA de la dirección del trade.
+2025-07-08 20:00:00+00:00,0.36,long,NO_TRADE,Premium zone + intent LONG y Trend ICT en CONTRA de la dirección del trade.
+2025-07-11 00:00:00+00:00,0.323,long,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2025-07-11 08:00:00+00:00,0.382,long,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2025-07-11 16:00:00+00:00,0.382,long,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2025-07-11 20:00:00+00:00,0.395,long,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2025-07-18 00:00:00+00:00,0.437,long,NO_TRADE,Premium zone + intent LONG con trend ICT en CONTRA.
+2025-07-20 00:00:00+00:00,0.305,long,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-07-20 08:00:00+00:00,0.317,long,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-08-01 16:00:00+00:00,-0.304,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-08-02 08:00:00+00:00,-0.317,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-08-18 00:00:00+00:00,-0.317,short,NO_TRADE,Discount zone con intent SHORT y confluence negativa.
+2025-08-18 16:00:00+00:00,-0.336,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-08-18 20:00:00+00:00,-0.336,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-08-20 04:00:00+00:00,-0.412,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-08-24 16:00:00+00:00,-0.361,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-08-28 16:00:00+00:00,-0.386,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-08-29 04:00:00+00:00,-0.47,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-08-29 08:00:00+00:00,-0.494,short,NO_TRADE,Premium zone + intent LONG y Trend ICT en CONTRA de la dirección del trade.
+2025-08-29 12:00:00+00:00,-0.486,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-08-29 16:00:00+00:00,-0.475,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-08-29 20:00:00+00:00,-0.475,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-08-30 00:00:00+00:00,-0.475,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-08-30 04:00:00+00:00,-0.475,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-08-30 08:00:00+00:00,-0.314,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-08-30 12:00:00+00:00,-0.313,short,NO_TRADE,"Premium zone + intent LONG, contra zona."
+2025-09-04 12:00:00+00:00,-0.438,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-09-04 16:00:00+00:00,-0.446,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-09-06 12:00:00+00:00,-0.313,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-09-06 16:00:00+00:00,-0.502,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-09-06 20:00:00+00:00,-0.507,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-09-22 16:00:00+00:00,-0.304,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-09-25 16:00:00+00:00,-0.459,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-09-26 00:00:00+00:00,-0.464,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-09-26 04:00:00+00:00,-0.464,short,NO_TRADE,Discount zone con intent SHORT y confluence negativa.
+2025-10-02 16:00:00+00:00,0.404,long,NO_TRADE,Premium zone + intent LONG con BBW > 8% indica alto riesgo.
+2025-10-02 20:00:00+00:00,0.393,long,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2025-10-03 00:00:00+00:00,0.412,long,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2025-10-03 04:00:00+00:00,0.41,long,NO_TRADE,Premium zone + intent LONG con BBW > 8% y sin refuerzos adicionales.
+2025-10-03 12:00:00+00:00,0.404,long,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2025-10-03 16:00:00+00:00,0.404,long,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2025-10-03 20:00:00+00:00,0.406,long,NO_TRADE,Premium zone + intent LONG y BBW > 8% indica alto riesgo.
+2025-10-04 00:00:00+00:00,0.4,long,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2025-10-04 04:00:00+00:00,0.395,long,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2025-10-08 08:00:00+00:00,0.378,long,NO_TRADE,Premium zone + intent LONG con trend ICT en contra.
+2025-10-09 08:00:00+00:00,0.376,long,NO_TRADE,Premium zone + intent LONG con trend ICT en CONTRA.
+2025-10-09 20:00:00+00:00,0.365,long,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-10-10 08:00:00+00:00,0.372,long,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-10-10 20:00:00+00:00,-0.33,short,NO_TRADE,BBW > 8% y sin refuerzos cualitativos.
+2025-10-11 00:00:00+00:00,-0.393,short,NO_TRADE,BBW > 8% y sin refuerzos cualitativos.
+2025-10-11 04:00:00+00:00,-0.382,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-10-11 08:00:00+00:00,-0.382,short,NO_TRADE,Confluence score negativo y sin refuerzos cualitativos.
+2025-10-16 04:00:00+00:00,-0.316,short,NO_TRADE,Confluence score negativo y sin refuerzos cualitativos suficientes.
+2025-10-16 12:00:00+00:00,-0.475,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-10-16 16:00:00+00:00,-0.475,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-10-16 20:00:00+00:00,-0.437,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-10-17 00:00:00+00:00,-0.483,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-10-17 08:00:00+00:00,-0.448,short,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2025-10-17 12:00:00+00:00,-0.437,short,NO_TRADE,BBW > 8% y confluence < 0.40
+2025-10-17 16:00:00+00:00,-0.437,short,NO_TRADE,Discount zone con intent short y BBW > 8%.
+2025-10-17 20:00:00+00:00,-0.489,short,NO_TRADE,Discount zone con intent short y BBW > 8%.
+2025-10-18 00:00:00+00:00,-0.315,short,NO_TRADE,Discount zone con intent short y BBW > 8%.
+2025-10-18 04:00:00+00:00,-0.315,short,NO_TRADE,Premium zone + intent LONG y BBW > 8% indican alto riesgo.
+2025-10-19 16:00:00+00:00,-0.305,short,NO_TRADE,Sin refuerzos cualitativos y confluence < 0.40.
+2025-10-22 12:00:00+00:00,-0.325,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-10-22 16:00:00+00:00,-0.315,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-10-23 00:00:00+00:00,-0.313,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-10-30 12:00:00+00:00,-0.337,short,NO_TRADE,Discount zone con intent SHORT y confluence negativa.
+2025-10-30 16:00:00+00:00,-0.437,short,NO_TRADE,Premium zone + intent LONG en discount zone y con volatilidad extrema.
+2025-10-31 00:00:00+00:00,-0.482,short,NO_TRADE,Premium zone + intent LONG y BBW > 8% indican alto riesgo.
+2025-10-31 04:00:00+00:00,-0.481,short,NO_TRADE,BBW > 8% y confluence < 0.40
+2025-11-03 00:00:00+00:00,-0.472,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-11-03 04:00:00+00:00,-0.486,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-11-03 08:00:00+00:00,-0.322,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-11-03 12:00:00+00:00,-0.459,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-11-03 16:00:00+00:00,-0.301,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-11-04 00:00:00+00:00,-0.309,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-11-04 04:00:00+00:00,-0.448,short,NO_TRADE,Premium zone + intent LONG y Trend ICT en CONTRA de la dirección del trade.
+2025-11-04 08:00:00+00:00,-0.448,short,NO_TRADE,Premium zone + intent LONG y Trend ICT en CONTRA de la dirección del trade.
+2025-11-04 12:00:00+00:00,-0.448,short,NO_TRADE,Premium zone + intent LONG y Trend ICT en CONTRA de la dirección del trade.
+2025-11-04 16:00:00+00:00,-0.448,short,NO_TRADE,Premium zone + intent LONG y Trend ICT en CONTRA de la dirección del trade.
+2025-11-04 20:00:00+00:00,-0.448,short,NO_TRADE,Premium zone + intent LONG y Trend ICT en CONTRA de la dirección del trade.
+2025-11-05 00:00:00+00:00,-0.448,short,NO_TRADE,Premium zone + intent LONG y Trend ICT en CONTRA de la dirección del trade.
+2025-11-05 04:00:00+00:00,-0.457,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-11-05 08:00:00+00:00,-0.456,short,NO_TRADE,"Premium zone + intent LONG, contra zona."
+2025-11-11 12:00:00+00:00,-0.418,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade y confluence < 0.40.
+2025-11-12 00:00:00+00:00,-0.313,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-11-12 04:00:00+00:00,-0.314,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-11-12 12:00:00+00:00,-0.45,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-11-12 16:00:00+00:00,-0.464,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-11-12 20:00:00+00:00,-0.311,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-11-13 00:00:00+00:00,-0.313,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-11-14 04:00:00+00:00,-0.403,short,NO_TRADE,Premium zone + intent LONG y BBW > 8% indican alto riesgo.
+2025-11-14 08:00:00+00:00,-0.365,short,NO_TRADE,Premium zone + intent LONG y con confluence negativa.
+2025-11-14 12:00:00+00:00,-0.403,short,NO_TRADE,Premium zone + intent LONG y BBW > 8% indican alto riesgo.
+2025-11-14 16:00:00+00:00,-0.365,short,NO_TRADE,"Premium zone + intent LONG, alto riesgo de whipsaw."
+2025-11-14 20:00:00+00:00,-0.365,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-11-15 00:00:00+00:00,-0.41,short,NO_TRADE,Discount zone con intent SHORT y confluence negativa.
+2025-11-15 04:00:00+00:00,-0.416,short,NO_TRADE,Discount zone con intent short y trend ICT en contra.
+2025-11-15 08:00:00+00:00,-0.389,short,NO_TRADE,Discount zone con intent short y trend ICT en contra.
+2025-11-16 00:00:00+00:00,-0.303,short,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2025-11-17 16:00:00+00:00,-0.376,short,NO_TRADE,Discount zone con intent SHORT y confluence negativa.
+2025-11-17 20:00:00+00:00,-0.376,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-11-18 04:00:00+00:00,-0.376,short,NO_TRADE,Premium zone + intent LONG y BBW > 8% indica alto riesgo.
+2025-11-18 12:00:00+00:00,-0.408,short,NO_TRADE,Premium zone + intent LONG y BBW > 8% indican alto riesgo.
+2025-11-20 16:00:00+00:00,-0.403,short,NO_TRADE,Discount zone con intent short y trend ICT en contra.
+2025-11-20 20:00:00+00:00,-0.365,short,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2025-11-21 04:00:00+00:00,-0.376,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-11-21 08:00:00+00:00,-0.376,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-11-21 12:00:00+00:00,-0.376,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-11-21 16:00:00+00:00,-0.411,short,NO_TRADE,Discount zone con intent short y trend ICT en contra.
+2025-11-21 20:00:00+00:00,-0.409,short,NO_TRADE,Discount zone con intent SHORT y confluence negativa.
+2025-11-22 00:00:00+00:00,-0.415,short,NO_TRADE,Discount zone con intent short y trend ICT en contra.
+2025-11-25 04:00:00+00:00,-0.357,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-11-26 00:00:00+00:00,-0.351,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-11-28 16:00:00+00:00,-0.363,short,NO_TRADE,Premium zone + intent SHORT y Trend ICT en CONTRA de la dirección del trade.
+2025-11-29 04:00:00+00:00,-0.327,short,NO_TRADE,Premium zone con intent SHORT y Trend ICT en CONTRA de la dirección del trade.
+2025-11-30 00:00:00+00:00,-0.32,short,NO_TRADE,Premium zone con intent SHORT y trend ICT en contra.
+2025-11-30 04:00:00+00:00,-0.329,short,NO_TRADE,Premium zone + intent SHORT con trend ICT en CONTRA.
+2025-11-30 08:00:00+00:00,-0.35,short,NO_TRADE,Premium zone + intent LONG contra la dirección del trade.
+2025-11-30 20:00:00+00:00,-0.328,short,NO_TRADE,Premium zone + intent LONG y confluence < 0.40.
+2025-12-01 08:00:00+00:00,-0.437,short,NO_TRADE,"Premium zone + intent LONG, confluence negativa y alta volatilidad."
+2025-12-01 12:00:00+00:00,-0.434,short,NO_TRADE,Discount zone con intent short y BBW > 8%.
+2025-12-02 00:00:00+00:00,-0.328,short,NO_TRADE,Premium zone + intent LONG y con confluence negativa.
+2025-12-02 08:00:00+00:00,-0.313,short,NO_TRADE,BBW > 8% y sin refuerzos cualitativos.
+2025-12-02 16:00:00+00:00,-0.352,short,NO_TRADE,Premium zone + intent SHORT y confluence negativa.
+2025-12-04 08:00:00+00:00,-0.379,short,NO_TRADE,Premium zone + intent LONG y confluence < 0.40.
+2025-12-04 12:00:00+00:00,-0.374,short,NO_TRADE,Premium zone + intent LONG y confluence < 0.40.
+2025-12-04 16:00:00+00:00,-0.375,short,NO_TRADE,Premium zone + intent LONG y confluence < 0.40.
+2025-12-05 08:00:00+00:00,-0.37,short,NO_TRADE,Premium zone + intent SHORT y Trend ICT en CONTRA de la dirección del trade.
+2025-12-05 12:00:00+00:00,-0.318,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-12-06 04:00:00+00:00,-0.443,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-12-08 12:00:00+00:00,-0.391,short,NO_TRADE,Sin refuerzos cualitativos y confluence < 0.40.
+2025-12-08 16:00:00+00:00,-0.379,short,NO_TRADE,Confluence score es muy bajo y no hay refuerzos cualitativos suficientes.
+2025-12-11 12:00:00+00:00,-0.325,short,NO_TRADE,Discount zone con intent short y trend ICT en contra.
+2025-12-11 16:00:00+00:00,-0.321,short,NO_TRADE,Confluence score es negativo y no hay refuerzos cualitativos suficientes.
+2025-12-12 12:00:00+00:00,-0.421,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-12-12 16:00:00+00:00,-0.316,short,NO_TRADE,Sin refuerzos cualitativos y confluence < 0.40.
+2025-12-12 20:00:00+00:00,-0.321,short,NO_TRADE,Sin refuerzos cualitativos y confluence < 0.40.
+2025-12-13 00:00:00+00:00,-0.32,short,NO_TRADE,Sin refuerzos cualitativos y confluence < 0.40.
+2025-12-13 04:00:00+00:00,-0.32,short,NO_TRADE,Sin refuerzos cualitativos y confluence < 0.40.
+2025-12-13 08:00:00+00:00,-0.323,short,NO_TRADE,Sin refuerzos cualitativos y confluence < 0.40.
+2025-12-13 12:00:00+00:00,-0.462,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-12-14 00:00:00+00:00,-0.457,short,NO_TRADE,Confluence score es muy bajo y no hay refuerzos cualitativos suficientes.
+2025-12-14 12:00:00+00:00,-0.437,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-12-14 16:00:00+00:00,-0.437,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-12-15 00:00:00+00:00,-0.312,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-12-16 04:00:00+00:00,-0.365,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2025-12-17 12:00:00+00:00,-0.41,short,NO_TRADE,Discount zone con intent SHORT y confluence negativa.
+2025-12-18 16:00:00+00:00,-0.409,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-12-21 00:00:00+00:00,-0.39,short,NO_TRADE,Confluence score es bajo y no hay refuerzos cualitativos suficientes.
+2025-12-22 00:00:00+00:00,-0.318,short,NO_TRADE,Premium zone + intent LONG y confluence < 0.40.
+2025-12-22 16:00:00+00:00,-0.399,short,NO_TRADE,Sin refuerzos cualitativos y confluence < 0.40.
+2025-12-24 16:00:00+00:00,-0.313,short,NO_TRADE,Confluence score es negativo y no hay refuerzos cualitativos suficientes.
+2025-12-27 04:00:00+00:00,-0.326,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-12-29 16:00:00+00:00,-0.337,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-12-29 20:00:00+00:00,-0.365,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-12-30 00:00:00+00:00,-0.489,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2025-12-31 12:00:00+00:00,-0.4,short,NO_TRADE,Sin refuerzos cualitativos y confluence < 0.40.
+2026-01-05 04:00:00+00:00,0.404,long,NO_TRADE,Premium zone + intent LONG contra zona.
+2026-01-06 04:00:00+00:00,0.41,long,NO_TRADE,Premium zone + intent LONG contra zona.
+2026-01-06 08:00:00+00:00,0.411,long,NO_TRADE,Premium zone + intent LONG contra zona.
+2026-01-06 12:00:00+00:00,0.337,long,NO_TRADE,Premium zone + intent LONG contra zona.
+2026-01-12 12:00:00+00:00,0.328,long,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2026-01-13 12:00:00+00:00,0.471,long,NO_TRADE,Premium zone + intent LONG con trend ICT en contra.
+2026-01-13 16:00:00+00:00,0.471,long,NO_TRADE,Premium zone + intent LONG con trend ICT en contra.
+2026-01-13 20:00:00+00:00,0.471,long,NO_TRADE,Premium zone + intent LONG con trend ICT en contra.
+2026-01-14 00:00:00+00:00,0.448,long,NO_TRADE,Premium zone + intent LONG contra la zona y Trend ICT en CONTRA.
+2026-01-14 04:00:00+00:00,0.448,long,NO_TRADE,Premium zone + intent LONG contra la zona y Trend ICT en CONTRA de la dirección del trade.
+2026-01-14 08:00:00+00:00,0.495,long,NO_TRADE,Premium zone + intent LONG con trend ICT en contra.
+2026-01-14 12:00:00+00:00,0.334,long,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2026-01-14 16:00:00+00:00,0.459,long,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2026-01-14 20:00:00+00:00,0.323,long,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2026-01-15 04:00:00+00:00,0.467,long,NO_TRADE,Premium zone + intent LONG con BBW > 8%
+2026-01-15 08:00:00+00:00,0.466,long,NO_TRADE,Premium zone + intent LONG con BBW > 8% y sin refuerzos adicionales.
+2026-01-20 20:00:00+00:00,-0.393,short,NO_TRADE,Premium zone + intent LONG y confluence < 0.40.
+2026-01-21 08:00:00+00:00,-0.382,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-01-25 12:00:00+00:00,-0.428,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2026-01-25 16:00:00+00:00,-0.448,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2026-01-25 20:00:00+00:00,-0.448,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2026-01-26 04:00:00+00:00,-0.323,short,NO_TRADE,"Premium zone + intent LONG, contra zona."
+2026-01-26 08:00:00+00:00,-0.465,short,NO_TRADE,Premium zone + intent LONG y Trend ICT en CONTRA de la dirección del trade.
+2026-01-26 12:00:00+00:00,-0.309,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-01-29 08:00:00+00:00,-0.315,short,NO_TRADE,"Premium zone + intent LONG, contra zona."
+2026-01-29 12:00:00+00:00,-0.448,short,NO_TRADE,"Premium zone + intent LONG, contra zona."
+2026-01-29 16:00:00+00:00,-0.448,short,NO_TRADE,Premium zone + intent LONG y Trend ICT en CONTRA de la dirección del trade.
+2026-01-29 20:00:00+00:00,-0.464,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2026-01-30 00:00:00+00:00,-0.432,short,NO_TRADE,Premium zone + intent LONG y Trend ICT en CONTRA de la dirección del trade.
+2026-01-30 04:00:00+00:00,-0.421,short,NO_TRADE,Premium zone + intent LONG y Trend ICT en CONTRA de la dirección del trade.
+2026-01-30 12:00:00+00:00,-0.421,short,NO_TRADE,Premium zone + intent LONG y Trend ICT en CONTRA de la dirección del trade.
+2026-01-31 16:00:00+00:00,-0.432,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-01-31 20:00:00+00:00,-0.421,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-02-01 00:00:00+00:00,-0.421,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-02-01 04:00:00+00:00,-0.426,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-02-01 08:00:00+00:00,-0.305,short,NO_TRADE,Discount zone con intent short y trend ICT en contra.
+2026-02-05 00:00:00+00:00,-0.365,short,NO_TRADE,Premium zone + intent LONG y confluence < 0.40.
+2026-02-05 04:00:00+00:00,-0.376,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-02-05 08:00:00+00:00,-0.365,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-02-05 12:00:00+00:00,-0.376,short,NO_TRADE,Premium zone + intent LONG y confluence < 0.40.
+2026-02-05 16:00:00+00:00,-0.376,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-02-05 20:00:00+00:00,-0.376,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-02-06 00:00:00+00:00,-0.376,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-02-06 04:00:00+00:00,-0.365,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-02-06 08:00:00+00:00,-0.383,short,NO_TRADE,Discount zone con intent SHORT y confluence negativa.
+2026-02-06 12:00:00+00:00,-0.381,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-02-08 20:00:00+00:00,-0.39,short,NO_TRADE,Sin refuerzos cualitativos y confluence < 0.40.
+2026-02-11 12:00:00+00:00,-0.376,short,NO_TRADE,BBW > 8% y sin refuerzos cualitativos.
+2026-02-11 20:00:00+00:00,-0.411,short,NO_TRADE,BBW > 8% y sin refuerzos cualitativos.
+2026-02-15 08:00:00+00:00,-0.328,short,NO_TRADE,Premium zone + intent SHORT y BBW > 8%.
+2026-02-15 12:00:00+00:00,-0.359,short,NO_TRADE,BBW > 8% y sin refuerzos cualitativos.
+2026-02-15 16:00:00+00:00,-0.4,short,NO_TRADE,BBW > 8% y sin refuerzos cualitativos.
+2026-02-16 12:00:00+00:00,-0.444,short,NO_TRADE,Premium zone + intent LONG y Trend ICT en CONTRA de la dirección del trade.
+2026-02-18 16:00:00+00:00,-0.392,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-02-19 20:00:00+00:00,-0.305,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-02-23 00:00:00+00:00,-0.307,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2026-02-24 00:00:00+00:00,-0.307,short,NO_TRADE,BBW > 8% y confluence < 0.40
+2026-02-24 04:00:00+00:00,-0.432,short,NO_TRADE,Discount zone con intent SHORT y BBW > 8%.
+2026-02-24 08:00:00+00:00,-0.421,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-02-24 12:00:00+00:00,-0.325,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-02-24 20:00:00+00:00,-0.345,short,NO_TRADE,Premium zone + intent LONG y confluence < 0.40.
+2026-02-25 20:00:00+00:00,-0.347,short,NO_TRADE,Premium zone + intent LONG y BBW > 8% indica alto riesgo.
+2026-02-26 04:00:00+00:00,-0.328,short,NO_TRADE,Premium zone + intent LONG y confluence < 0.40.
+2026-02-27 08:00:00+00:00,-0.38,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade y confluence < 0.40.
+2026-02-27 16:00:00+00:00,-0.473,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade y confluence < 0.40.
+2026-02-27 20:00:00+00:00,-0.316,short,NO_TRADE,BBW > 8% y sin refuerzos cualitativos.
+2026-02-28 00:00:00+00:00,-0.443,short,NO_TRADE,BBW > 8% y sin refuerzos cualitativos.
+2026-02-28 04:00:00+00:00,-0.421,short,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2026-02-28 08:00:00+00:00,-0.421,short,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2026-02-28 16:00:00+00:00,-0.309,short,NO_TRADE,BBW > 8% y sin refuerzos cualitativos.
+2026-03-03 04:00:00+00:00,-0.33,short,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2026-03-03 16:00:00+00:00,-0.329,short,NO_TRADE,Premium zone + intent LONG y Trend ICT en CONTRA de la dirección del trade.
+2026-03-03 20:00:00+00:00,-0.33,short,NO_TRADE,Premium zone + intent LONG y Trend ICT en CONTRA de la dirección del trade.
+2026-03-04 00:00:00+00:00,-0.333,short,NO_TRADE,Premium zone con intent SHORT y Trend ICT en CONTRA de la dirección del trade.
+2026-03-06 12:00:00+00:00,-0.431,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade y confluence < 0.40.
+2026-03-06 16:00:00+00:00,-0.412,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade y confluence < 0.40.
+2026-03-06 20:00:00+00:00,-0.418,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade y confluence < 0.40.
+2026-03-07 00:00:00+00:00,-0.417,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade y confluence < 0.40.
+2026-03-08 20:00:00+00:00,-0.432,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade y confluence < 0.40.
+2026-03-09 04:00:00+00:00,-0.304,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-03-09 08:00:00+00:00,-0.442,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-03-10 08:00:00+00:00,0.332,long,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2026-03-10 12:00:00+00:00,0.332,long,NO_TRADE,Premium zone + intent LONG con trend ICT en contra.
+2026-03-15 20:00:00+00:00,0.336,long,NO_TRADE,Premium zone + intent LONG contra zona.
+2026-03-19 12:00:00+00:00,-0.337,short,NO_TRADE,Premium zone + intent LONG y Trend ICT en CONTRA de la dirección del trade.
+2026-03-21 20:00:00+00:00,-0.356,short,NO_TRADE,Discount zone con intent SHORT y confluence negativa.
+2026-03-22 16:00:00+00:00,-0.439,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-03-23 04:00:00+00:00,-0.477,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-03-26 16:00:00+00:00,-0.447,short,NO_TRADE,Discount zone con intent short y trend ICT en contra.
+2026-03-27 00:00:00+00:00,-0.456,short,NO_TRADE,Premium zone + intent LONG con trend ICT en contra.
+2026-03-27 04:00:00+00:00,-0.447,short,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2026-03-27 08:00:00+00:00,-0.418,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-03-27 12:00:00+00:00,-0.307,short,NO_TRADE,Premium zone + intent LONG y BBW > 8%.
+2026-03-27 20:00:00+00:00,-0.421,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-03-28 00:00:00+00:00,-0.421,short,NO_TRADE,Discount zone con intent SHORT y BBW > 8%.
+2026-03-28 04:00:00+00:00,-0.439,short,NO_TRADE,Discount zone con intent short y BBW > 8%.
+2026-03-29 00:00:00+00:00,-0.302,short,NO_TRADE,Discount zone con intent SHORT y BBW > 8% indica alto riesgo.
+2026-03-30 00:00:00+00:00,-0.302,short,NO_TRADE,Discount zone con intent SHORT y confluence negativa.
+2026-03-30 16:00:00+00:00,-0.407,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-04-01 20:00:00+00:00,-0.354,short,NO_TRADE,Sin refuerzos cualitativos y confluence < 0.40.
+2026-04-02 00:00:00+00:00,-0.385,short,NO_TRADE,Discount zone con intent short y confluence negativa.
+2026-04-02 20:00:00+00:00,-0.311,short,NO_TRADE,Discount zone con intent SHORT y confluence negativa.
+2026-04-03 08:00:00+00:00,-0.302,short,NO_TRADE,Discount zone con intent short y sin refuerzos cualitativos.
+2026-04-03 12:00:00+00:00,-0.436,short,NO_TRADE,Confluence score negativo y sin refuerzos cualitativos.
+2026-04-03 16:00:00+00:00,-0.302,short,NO_TRADE,Sin refuerzos cualitativos y confluence < 0.40.
+2026-04-03 20:00:00+00:00,-0.302,short,NO_TRADE,Sin refuerzos cualitativos y confluence < 0.40.
+2026-04-04 00:00:00+00:00,-0.302,short,NO_TRADE,Sin refuerzos cualitativos y confluence < 0.40.
+2026-04-08 04:00:00+00:00,0.322,long,NO_TRADE,Premium zone + intent LONG con volatilidad extrema.
+2026-04-14 12:00:00+00:00,0.471,long,NO_TRADE,Premium zone con intent LONG y BBW > 8% indica alto riesgo.
+2026-04-14 16:00:00+00:00,0.504,long,NO_TRADE,Premium zone con intent LONG y BBW > 8% indica alto riesgo.
+2026-04-14 20:00:00+00:00,0.477,long,NO_TRADE,Premium zone + intent LONG con BBW > 8% indica alto riesgo de whipsaw.
+2026-04-15 00:00:00+00:00,0.477,long,NO_TRADE,Premium zone + intent LONG con BBW > 8% indica alto riesgo de whipsaw.
+2026-04-15 08:00:00+00:00,0.31,long,NO_TRADE,Premium zone + intent LONG y BBW > 8% indica alto riesgo.
+2026-04-15 16:00:00+00:00,0.311,long,NO_TRADE,Premium zone + intent LONG con BBW > 8% indica alto riesgo de whipsaw.
+2026-04-15 20:00:00+00:00,0.337,long,NO_TRADE,Premium zone + intent LONG con BBW > 8% indica alto riesgo.
+2026-04-16 00:00:00+00:00,0.337,long,NO_TRADE,Premium zone + intent LONG con BBW > 8% indica alto riesgo de whipsaw.
+2026-04-17 12:00:00+00:00,0.471,long,NO_TRADE,Trend ICT en CONTRA de la dirección del trade.
+2026-04-17 16:00:00+00:00,0.459,long,NO_TRADE,Premium zone + intent LONG con trend ICT en contra.
+2026-04-17 20:00:00+00:00,0.459,long,NO_TRADE,Premium zone + intent LONG con trend ICT en contra.
+2026-04-18 00:00:00+00:00,0.481,long,NO_TRADE,Premium zone + intent LONG y Trend ICT en CONTRA de la dirección del trade.

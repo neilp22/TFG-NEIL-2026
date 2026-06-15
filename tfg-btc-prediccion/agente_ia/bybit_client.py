@@ -250,6 +250,32 @@ class BybitDemoClient:
             "status":      "open",
         }
 
+    # ── Mover Stop Loss nativo (breakeven / trailing) ──────────────────────────
+
+    def update_stop_loss(self, stop_loss: float) -> dict:
+        """Modifica el SL nativo de la posición abierta en Bybit (set-trading-stop).
+        Persiste en el exchange, así protege aunque el bot se apague."""
+        self._require_auth()
+        sl_str = str(round(float(stop_loss), 2))
+        body = {
+            "category":    CATEGORY,
+            "symbol":      SYMBOL,
+            "stopLoss":    sl_str,
+            "tpslMode":    "Full",
+            "positionIdx": 0,
+        }
+        try:
+            if self._session:
+                r = self._session.set_trading_stop(**body)
+            else:
+                r = _post("/v5/position/trading-stop", body)
+        except Exception as e:
+            log.error("update_stop_loss error: %s", e)
+            return {"error": str(e)}
+        _check(r)
+        log.info("SL movido a %s en Bybit", sl_str)
+        return {"status": "ok", "stop_loss": float(sl_str)}
+
     # ── Cerrar posición ───────────────────────────────────────────────────────
 
     def close_position(self, direction: str) -> dict:

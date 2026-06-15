@@ -20,7 +20,10 @@ import logging
 import math
 import os
 import sys
+import threading
+import time
 from datetime import datetime, timezone, timedelta
+from decimal import Decimal
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -53,6 +56,54 @@ def _load_indicators():
         mod  = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         return mod
+
+
+# ── Precio live unificado ─────────────────────────────────────────────────────
+# Única fuente de precio para TODAS las tools: caché con TTL corto sobre el
+# ticker spot de Binance, opcionalmente sembrada desde fuera (WebSocket del
+# dashboard) vía set_live_price(). Así query_market, get_confluence_score,
+# get_entry_zone, get_technical_levels y el prompt del agente usan el MISMO
+# número, en vez de mezclar el close (congelado) de la última vela en DB
+# con el precio real de mercado.
+
+_LIVE_PRICE = {"price": None, "ts": 0.0, "source": None}
+_LIVE_PRICE_LOCK = threading.Lock()
+_LIVE_PRICE_TTL = 10.0  # segundos
+
+
+def set_live_price(price: float, source: str = "external") -> None:
+    """Siembra el precio live desde fuera (p.ej. WebSocket Binance del dashboard)."""
+    try:
+        price = float(price)
+    except (TypeError, ValueError):
+        return
+    if price <= 0:
+        return
+    with _LIVE_PRICE_LOCK:
+        _LIVE_PRICE.update({"price": price, "ts": time.time(), "source": source})
+
+
+def get_live_price(max_age_seconds: float = _LIVE_PRICE_TTL) -> dict | None:
+    """Precio BTC actual con caché TTL. None si no hay fuente disponible."""
+    now = time.time()
+    with _LIVE_PRICE_LOCK:
+        if _LIVE_PRICE["price"] and now - _LIVE_PRICE["ts"] <= max_age_seconds:
+            return dict(_LIVE_PRICE)
+    try:
+        r = requests.get("https://api.binance.com/api/v3/ticker/price",
+                         params={"symbol": "BTCUSDT"}, timeout=3)
+        r.raise_for_status()
+        price = float(r.json()["price"])
+        with _LIVE_PRICE_LOCK:
+            _LIVE_PRICE.update({"price": price, "ts": now, "source": "binance_rest"})
+            return dict(_LIVE_PRICE)
+    except Exception as e:
+        log.debug("get_live_price: Binance no disponible: %s", e)
+        with _LIVE_PRICE_LOCK:
+            # Mejor un precio algo viejo que ninguno
+            if _LIVE_PRICE["price"] and now - _LIVE_PRICE["ts"] <= 120:
+                return dict(_LIVE_PRICE)
+        return None
 
 
 # ── Definiciones de herramientas (OpenAI function calling) ────────────────────
@@ -286,6 +337,11 @@ def query_market(timeframe: str = '1h', candles: int = 20) -> dict:
             return None
         if isinstance(v, (np.floating, np.integer)):
             v = float(v)
+        # Coerce decimal.Decimal → float to evitar Decimal × float TypeError
+        # downstream en _score_* (PostgreSQL NUMERIC retorna Decimal en
+        # Python 3.13 con psycopg2/SQLAlchemy 2.x).
+        if isinstance(v, Decimal):
+            v = float(v)
         return round(v, 4) if isinstance(v, float) else v
 
     try:
@@ -299,7 +355,19 @@ def query_market(timeframe: str = '1h', candles: int = 20) -> dict:
                     'atr_14', 'vwap', 'volume_ratio', 'session', 'is_killzone']
             df = pd.DataFrame(rows, columns=cols).sort_values('timestamp').tail(candles)
             last = df.iloc[-1]
-            price = float(last['close'])
+            candle_close = float(last['close'])
+
+            # Precio de referencia = live (misma fuente que dashboard y agente).
+            # El close de la vela en curso puede ir minutos por detrás.
+            live = get_live_price()
+            price = float(live['price']) if live else candle_close
+            price_source = (live or {}).get('source') or 'last_candle_close'
+
+            last_ts = pd.Timestamp(last['timestamp'])
+            if last_ts.tzinfo is None:
+                last_ts = last_ts.tz_localize(timezone.utc)
+            data_age_min = round(
+                (datetime.now(timezone.utc) - last_ts.to_pydatetime()).total_seconds() / 60, 1)
 
             # Cambios porcentuales
             n1h  = 1 if timeframe == '1h' else (4 if timeframe == '4h' else 1)
@@ -348,6 +416,9 @@ def query_market(timeframe: str = '1h', candles: int = 20) -> dict:
                 'timeframe':    timeframe,
                 'timestamp':    str(last['timestamp']),
                 'price_now':    price,
+                'price_source': price_source,
+                'candle_close': candle_close,
+                'data_age_minutes': data_age_min,
                 f'change_{timeframe}': _pct_change(n1h),
                 'change_4h':    _pct_change(n4h),
                 'change_24h':   _pct_change(n24h),
@@ -510,26 +581,47 @@ def _run_xgboost_daily() -> dict:
 # ── Tool 3: rag_search ────────────────────────────────────────────────────────
 
 def rag_search(query: str, k: int = 5, before_date: str = None) -> dict:
+    """
+    Búsqueda semántica en corpus de noticias (raw_texts con sentiment scored).
+    Pipeline: FAISS + sentence-transformers/all-MiniLM-L6-v2 (384-dim, cosine).
+    Index pre-built en models/saved/rag_faiss.index (1996 docs).
+    """
     k = max(1, min(k, 10))
-    engine = get_engine()
 
-    # Intento semántico
-    results = None
+    # Intento semántico FAISS (rag_pipeline.py)
     try:
         try:
-            from agente_ia.setup_rag import semantic_search
+            from agente_ia.rag_pipeline import semantic_search as _faiss_search
         except ImportError:
             sys.path.insert(0, str(_HERE))
-            from setup_rag import semantic_search  # type: ignore
-        results = semantic_search(query, engine, k=k, before_date=before_date)
+            from rag_pipeline import semantic_search as _faiss_search  # type: ignore
+        results = _faiss_search(query, k=k, before_date=before_date)
+        if results:
+            return {
+                'query': query, 'k': len(results), 'before_date': before_date,
+                'method': 'semantic (FAISS + MiniLM-L6-v2)',
+                'results': results
+            }
+    except Exception as e:
+        log.debug(f"FAISS RAG falló: {e} — fallback a pgvector/LIKE")
+
+    # Fallback intermedio: pgvector (si alguna vez se configura)
+    try:
+        try:
+            from agente_ia.setup_rag import semantic_search as _pgv_search
+        except ImportError:
+            sys.path.insert(0, str(_HERE))
+            from setup_rag import semantic_search as _pgv_search  # type: ignore
+        engine = get_engine()
+        results = _pgv_search(query, engine, k=k, before_date=before_date)
+        if results:
+            return {'query': query, 'k': len(results), 'before_date': before_date,
+                    'method': 'semantic (pgvector)', 'results': results}
     except Exception:
-        pass  # caer en fallback textual
+        pass
 
-    if results:
-        return {'query': query, 'k': len(results), 'before_date': before_date,
-                'method': 'semantic (pgvector)', 'results': results}
-
-    # Fallback: búsqueda textual LIKE
+    # Fallback final: búsqueda textual LIKE
+    engine = get_engine()
     like_query = f"%{query.lower()[:50]}%"
     sql = text("""
         SELECT text, source, timestamp FROM raw_texts
@@ -540,7 +632,7 @@ def rag_search(query: str, k: int = 5, before_date: str = None) -> dict:
         with engine.connect() as conn:
             rows = conn.execute(sql, {'q': like_query, 'k': k}).fetchall()
         fallback_results = [{'text': r[0][:200], 'source': r[1], 'timestamp': str(r[2]), 'similarity': None} for r in rows]
-        return {'query': query, 'method': 'text_fallback (pgvector no disponible)',
+        return {'query': query, 'method': 'text_fallback (LIKE)',
                 'results': fallback_results}
     except Exception as e:
         return {'error': str(e)}
@@ -690,6 +782,9 @@ def get_technical_levels() -> dict:
 
 
 def _get_current_price(engine) -> float | None:
+    live = get_live_price()
+    if live and live.get('price'):
+        return float(live['price'])
     for tf in ('1h', '4h', '1d'):
         try:
             with engine.connect() as conn:
@@ -1045,12 +1140,13 @@ def get_trade_parameters(
             return {'error': 'No se pudo obtener precio actual'}
 
         # SL y TP automáticos basados en ATR y dirección
+        # SL 2.0×ATR (más holgado, evita whipsaws) | TP 4.0×ATR (R:R 2:1 gross)
         if direction == 'long':
-            sl = sl_override or round(entry - 1.5 * atr, 2)
-            tp = tp_override or round(entry + 2.5 * atr, 2)
+            sl = sl_override or round(entry - 2.0 * atr, 2)
+            tp = tp_override or round(entry + 4.0 * atr, 2)
         else:
-            sl = sl_override or round(entry + 1.5 * atr, 2)
-            tp = tp_override or round(entry - 2.5 * atr, 2)
+            sl = sl_override or round(entry + 2.0 * atr, 2)
+            tp = tp_override or round(entry - 4.0 * atr, 2)
 
         result = tc.calculate_trade(
             entry_price=entry,
@@ -1067,8 +1163,8 @@ def get_trade_parameters(
         result['direction'] = direction
         result['current_price'] = price_now
         result['atr_1h'] = round(atr, 2)
-        result['sl_method'] = 'manual' if sl_override else 'ATR 1.5x'
-        result['tp_method'] = 'manual' if tp_override else 'ATR 2.5x'
+        result['sl_method'] = 'manual' if sl_override else 'ATR 2.0x'
+        result['tp_method'] = 'manual' if tp_override else 'ATR 4.0x'
 
         # Optimal risk
         optimal_risk = tc.get_optimal_risk(win_rate=0.50, rr_ratio=result.get('risk_reward_gross', 1.5))
@@ -1116,24 +1212,63 @@ TOOL_DEFINITIONS.append({
 })
 
 CONFLUENCE_WEIGHTS = {
+    # Calibrado por grid search empírico (analysis/weight_grid_search.py)
+    # Config ganadora: 20_Trend_Following
+    # Resultado backtest 90d: Return +5.64%, Sharpe 1.11, DD -11.58%, 26 trades, win 42.3%
+    # vs Original (TECH=0.20, ICT=0.25, MTF=0.20, SM=0.10, SENT=0.10, ML=0.15) → -3.41% Sharpe -1.24
     "technical":   0.20,
     "ict":         0.25,
-    "mtf":         0.20,
-    "smart_money": 0.10,
-    "sentiment":   0.10,
-    "ml":          0.15,
+    "mtf":         0.35,    # ← antes 0.20. MTF resultó ser el módulo con mayor edge
+    "smart_money": 0.05,    # ← antes 0.10. Reducido por bajo edge demostrado
+    "sentiment":   0.05,    # ← antes 0.10. Sentimiento news inestable (cobertura limitada)
+    "ml":          0.10,    # ← antes 0.15. Ensemble actual no validado (Cython mismatch)
 }
+
+
+def _coerce_numeric(obj):
+    """
+    Recursivamente convierte cualquier Decimal/numérico raro a float nativo.
+    Fix para PostgreSQL NUMERIC → decimal.Decimal × float TypeError en scoring.
+    Importante: bool se preserva (subclase de int), str y None también.
+    """
+    if obj is None or isinstance(obj, (bool, str, bytes)):
+        return obj
+    if isinstance(obj, dict):
+        return {k: _coerce_numeric(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return type(obj)(_coerce_numeric(x) for x in obj)
+    if isinstance(obj, Decimal):
+        return float(obj)
+    if isinstance(obj, int):
+        return obj
+    if isinstance(obj, float):
+        return obj
+    try:
+        return float(obj)   # numpy.float64, numpy.int64, etc.
+    except (TypeError, ValueError):
+        return obj
+
+
+def _f(v, default=0.0):
+    """Float defensivo — convierte Decimal/numpy/str numérico a float nativo."""
+    if v is None:
+        return default
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return default
 
 
 def _score_technical(mkt: dict) -> tuple[float, list[str]]:
     """Score técnico -1..+1 desde indicadores de query_market."""
     ind  = mkt.get("indicators") or {}
-    price = mkt.get("price_now") or 0
+    price = _f(mkt.get("price_now"))
     signals = []
     score_parts = []
 
-    rsi = ind.get("rsi_14")
-    if rsi is not None:
+    rsi_raw = ind.get("rsi_14")
+    if rsi_raw is not None:
+        rsi = _f(rsi_raw)
         if rsi < 30:
             score_parts.append(0.8)
             signals.append(f"RSI {rsi:.0f} sobrevendido (bullish)")
@@ -1153,7 +1288,7 @@ def _score_technical(mkt: dict) -> tuple[float, list[str]]:
     macd = ind.get("macd")
     macd_sig = ind.get("macd_signal")
     if macd is not None and macd_sig is not None:
-        if macd > macd_sig:
+        if _f(macd) > _f(macd_sig):
             score_parts.append(0.4)
             signals.append("MACD alcista (sobre señal)")
         else:
@@ -1164,14 +1299,15 @@ def _score_technical(mkt: dict) -> tuple[float, list[str]]:
     ema_21 = ind.get("ema_21")
     ema_50 = ind.get("ema_50")
     if price and ema_50:
-        if price > ema_50:
+        ema_50_f = _f(ema_50)
+        if price > ema_50_f:
             score_parts.append(0.3)
-            signals.append(f"Precio sobre EMA50 ({ema_50:.0f})")
+            signals.append(f"Precio sobre EMA50 ({ema_50_f:.0f})")
         else:
             score_parts.append(-0.3)
-            signals.append(f"Precio bajo EMA50 ({ema_50:.0f})")
+            signals.append(f"Precio bajo EMA50 ({ema_50_f:.0f})")
     if ema_9 and ema_21:
-        if ema_9 > ema_21:
+        if _f(ema_9) > _f(ema_21):
             score_parts.append(0.3)
             signals.append("EMA9 > EMA21 (tendencia alcista corto plazo)")
         else:
@@ -1182,8 +1318,10 @@ def _score_technical(mkt: dict) -> tuple[float, list[str]]:
     bb_lower = ind.get("bb_lower")
     bb_mid   = ind.get("bb_mid")
     if price and bb_upper and bb_lower and bb_mid:
-        bb_range = bb_upper - bb_lower
-        bb_pos   = (price - bb_lower) / bb_range if bb_range > 0 else 0.5
+        bb_upper_f = _f(bb_upper)
+        bb_lower_f = _f(bb_lower)
+        bb_range = bb_upper_f - bb_lower_f
+        bb_pos   = (price - bb_lower_f) / bb_range if bb_range > 0 else 0.5
         if bb_pos > 0.85:
             score_parts.append(-0.3)
             signals.append("Precio cerca BB superior (reversión posible)")
@@ -1237,24 +1375,24 @@ def _score_ict(ict: dict, price: float) -> tuple[float, list[str]]:
     # OBs cercanos (<2%)
     obs_bull = ict.get("active_ob_bullish") or []
     obs_bear = ict.get("active_ob_bearish") or []
-    close_bull = [o for o in obs_bull if abs(o.get("distance_pct", 999)) < 2.0]
-    close_bear = [o for o in obs_bear if abs(o.get("distance_pct", 999)) < 2.0]
+    close_bull = [o for o in obs_bull if abs(_f(o.get("distance_pct"), 999)) < 2.0]
+    close_bear = [o for o in obs_bear if abs(_f(o.get("distance_pct"), 999)) < 2.0]
     if close_bull:
         score_parts.append(0.5)
-        signals.append(f"OB alcista cercano ({close_bull[0].get('low',0):.0f}–{close_bull[0].get('high',0):.0f})")
+        signals.append(f"OB alcista cercano ({_f(close_bull[0].get('low')):.0f}–{_f(close_bull[0].get('high')):.0f})")
     if close_bear:
         score_parts.append(-0.5)
-        signals.append(f"OB bajista cercano ({close_bear[0].get('low',0):.0f}–{close_bear[0].get('high',0):.0f})")
+        signals.append(f"OB bajista cercano ({_f(close_bear[0].get('low')):.0f}–{_f(close_bear[0].get('high')):.0f})")
 
     # FVGs cercanos (<2%)
     for fvg in (ict.get("unmitigated_fvg_below") or []):
-        if abs(fvg.get("distance_pct", 999)) < 2.0:
+        if abs(_f(fvg.get("distance_pct"), 999)) < 2.0:
             score_parts.append(0.3)
-            signals.append(f"FVG alcista bajo precio ({fvg.get('bottom',0):.0f}–{fvg.get('top',0):.0f})")
+            signals.append(f"FVG alcista bajo precio ({_f(fvg.get('bottom')):.0f}–{_f(fvg.get('top')):.0f})")
     for fvg in (ict.get("unmitigated_fvg_above") or []):
-        if abs(fvg.get("distance_pct", 999)) < 2.0:
+        if abs(_f(fvg.get("distance_pct"), 999)) < 2.0:
             score_parts.append(-0.3)
-            signals.append(f"FVG bajista sobre precio ({fvg.get('bottom',0):.0f}–{fvg.get('top',0):.0f})")
+            signals.append(f"FVG bajista sobre precio ({_f(fvg.get('bottom')):.0f}–{_f(fvg.get('top')):.0f})")
 
     # Killzone
     if ict.get("is_killzone"):
@@ -1269,15 +1407,18 @@ def _score_mtf(mtf: dict) -> tuple[float, list[str]]:
     """Score MTF -1..+1 desde get_multi_timeframe_bias."""
     conf = mtf.get("confluence") or {}
     direction = conf.get("direction", "neutral")
-    conf_score = float(conf.get("score", 0))
-    aligned    = int(conf.get("aligned", 0))
+    conf_score = _f(conf.get("score"), 0.0)
+    aligned_raw = conf.get("aligned", 0)
+    # `aligned` puede venir como bool en algunos paths, como int en otros
+    aligned    = int(aligned_raw) if not isinstance(aligned_raw, bool) else (1 if aligned_raw else 0)
     signals    = []
 
     individual = []
     for tf in ("1h", "4h", "1d"):
         b = mtf.get(f"bias_{tf}") or {}
         bias_d = b.get("direction", "neutral")  # key is "direction" not "bias_direction"
-        signals.append(f"{tf}: {bias_d} (strength {b.get('strength', 0):.2f})")
+        strength = _f(b.get("strength"), 0.0)
+        signals.append(f"{tf}: {bias_d} (strength {strength:.2f})")
         if bias_d == "bullish":
             individual.append(1.0)
         elif bias_d == "bearish":
@@ -1286,7 +1427,7 @@ def _score_mtf(mtf: dict) -> tuple[float, list[str]]:
             individual.append(0.0)
 
     score = sum(individual) / len(individual) if individual else 0.0
-    aligned_bool = conf.get("aligned", False)
+    aligned_bool = bool(conf.get("aligned", False))
     if aligned_bool or aligned >= 2:
         signals.append(f"Todos los TF alineados {direction}")
     return max(-1.0, min(1.0, score)), signals
@@ -1296,11 +1437,12 @@ def _score_smart_money(vol_profile: dict, mkt: dict) -> tuple[float, list[str]]:
     """Score smart money -1..+1 desde VWAP, volume profile y volumen."""
     score_parts = []
     signals     = []
-    price       = mkt.get("price_now") or 0
+    price       = _f(mkt.get("price_now"))
     ind         = mkt.get("indicators") or {}
 
-    vwap = ind.get("vwap")
-    if vwap and price:
+    vwap_raw = ind.get("vwap")
+    if vwap_raw and price:
+        vwap = _f(vwap_raw)
         if price > vwap:
             score_parts.append(0.5)
             signals.append(f"Precio sobre VWAP ({vwap:.0f}) — sesión alcista")
@@ -1309,16 +1451,17 @@ def _score_smart_money(vol_profile: dict, mkt: dict) -> tuple[float, list[str]]:
             signals.append(f"Precio bajo VWAP ({vwap:.0f}) — sesión bajista")
 
     vol_confirm = vol_profile.get("trade_volume_confirmation")
-    vol_ratio   = vol_profile.get("vol_ratio_vs_hour_avg")
+    _vr_raw     = vol_profile.get("vol_ratio_vs_hour_avg")
+    vol_ratio   = _f(_vr_raw) if _vr_raw is not None else None
     if vol_confirm == "strong_confirm":
         score_parts.append(0.4)
-        signals.append(f"Volumen alto (ratio {vol_ratio:.2f}x) — confirma dirección")
+        signals.append(f"Volumen alto (ratio {vol_ratio:.2f}x) — confirma dirección" if vol_ratio is not None else "Volumen alto — confirma dirección")
     elif vol_confirm == "weak_no_confirm":
         score_parts.append(-0.2)
-        signals.append(f"Volumen bajo (ratio {vol_ratio:.2f}x) — movimiento sin convicción")
+        signals.append(f"Volumen bajo (ratio {vol_ratio:.2f}x) — movimiento sin convicción" if vol_ratio is not None else "Volumen bajo — movimiento sin convicción")
     else:
         score_parts.append(0.0)
-        signals.append(f"Volumen neutral (ratio {vol_ratio:.2f}x)" if vol_ratio else "Volumen: sin datos")
+        signals.append(f"Volumen neutral (ratio {vol_ratio:.2f}x)" if vol_ratio is not None else "Volumen: sin datos")
 
     if not score_parts:
         return 0.0, ["Sin datos de smart money"]
@@ -1331,15 +1474,16 @@ def _score_sentiment_module(sent: dict, fg: dict) -> tuple[float, list[str]]:
     signals     = []
 
     # News score — key is "period_avg" in get_sentiment()
-    ns = sent.get("period_avg") if sent else None
-    if ns is not None:
-        score_parts.append(max(-1.0, min(1.0, float(ns) * 2)))
-        signals.append(f"Sentimiento noticias: {float(ns):+.3f} ({sent.get('sentiment_label','?')})")
+    ns_raw = sent.get("period_avg") if sent else None
+    if ns_raw is not None:
+        ns = _f(ns_raw)
+        score_parts.append(max(-1.0, min(1.0, ns * 2.0)))
+        signals.append(f"Sentimiento noticias: {ns:+.3f} ({sent.get('sentiment_label','?')})")
 
     # Fear & Greed (contrarian para extremos)
     fg_val = fg.get("value") if fg else None
     if fg_val is not None:
-        fg_val = float(fg_val)
+        fg_val = _f(fg_val)
         fg_label = fg.get("classification", fg.get("label", ""))
         if fg_val <= 20:
             score_parts.append(0.5)
@@ -1365,24 +1509,25 @@ def _score_sentiment_module(sent: dict, fg: dict) -> tuple[float, list[str]]:
 def _score_ml_module(ml: dict) -> tuple[float, float, list[str]]:
     """Score ML -1..+1 + peso efectivo. Descarta si inválido o proba ~0.5."""
     signals = []
-    prob = ml.get("probability")
-    valid = ml.get("valid", False)
-    auc   = ml.get("model_auc", 0)
+    prob_raw = ml.get("probability")
+    valid = bool(ml.get("valid", False))
+    auc   = _f(ml.get("model_auc"), 0.0)
 
     if not valid or auc < 0.55:
         signals.append(f"Modelo AUC {auc:.3f} <0.55 — peso ignorado")
         return 0.0, 0.0, signals
 
-    if prob is None:
+    if prob_raw is None:
         return 0.0, 0.0, ["Sin predicción ML"]
 
+    prob = _f(prob_raw)
     if 0.45 <= prob <= 0.55:
         signals.append(f"ML proba {prob:.3f} — sin señal clara (redistribuido)")
         return 0.0, 0.0, signals
 
-    direction_score = (prob - 0.5) * 2  # -1..+1
+    direction_score = (prob - 0.5) * 2.0  # -1..+1
     signals.append(f"ML proba {prob:.3f} — {'alcista' if prob > 0.5 else 'bajista'} (AUC {auc:.3f})")
-    return max(-1.0, min(1.0, direction_score)), CONFLUENCE_WEIGHTS["ml"], signals
+    return max(-1.0, min(1.0, direction_score)), float(CONFLUENCE_WEIGHTS["ml"]), signals
 
 
 def get_confluence_score(timeframe: str = "1h") -> dict:
@@ -1394,14 +1539,15 @@ def get_confluence_score(timeframe: str = "1h") -> dict:
     from datetime import datetime as _dt, timezone as _tz
 
     try:
-        mkt      = query_market(timeframe=timeframe, candles=5)
-        price    = mkt.get("price_now") or 0
-        ict      = get_ict_context(timeframe=timeframe)
-        mtf      = get_multi_timeframe_bias()
-        vol_prof = get_volume_profile()
-        sent     = get_sentiment(days=1)
-        fg_data  = get_fear_greed(days=1)
-        ml_data  = run_ml_prediction()
+        # Coerce all data sources to native Python floats — evita Decimal × float TypeError
+        mkt      = _coerce_numeric(query_market(timeframe=timeframe, candles=5))
+        price    = float(mkt.get("price_now") or 0)
+        ict      = _coerce_numeric(get_ict_context(timeframe=timeframe))
+        mtf      = _coerce_numeric(get_multi_timeframe_bias())
+        vol_prof = _coerce_numeric(get_volume_profile())
+        sent     = _coerce_numeric(get_sentiment(days=1))
+        fg_data  = _coerce_numeric(get_fear_greed(days=1))
+        ml_data  = _coerce_numeric(run_ml_prediction())
 
         fg = None
         if isinstance(fg_data, dict):
@@ -1435,7 +1581,8 @@ def get_confluence_score(timeframe: str = "1h") -> dict:
             "sentiment":   sent_score,
             "ml":          ml_score,
         }
-        raw_score = sum(scores[k] * base_w[k] for k in scores)
+        # Defensa extra: forzar float aunque algún score venga como Decimal
+        raw_score = sum(float(scores[k]) * float(base_w[k]) for k in scores)
         raw_score = max(-1.0, min(1.0, raw_score))
 
         # Label
@@ -1469,9 +1616,9 @@ def get_confluence_score(timeframe: str = "1h") -> dict:
 
         modules_out = {
             k: {
-                "score":        round(scores[k], 3),
-                "weight":       round(base_w[k], 3),
-                "contribution": round(scores[k] * base_w[k], 4),
+                "score":        round(float(scores[k]), 3),
+                "weight":       round(float(base_w[k]), 3),
+                "contribution": round(float(scores[k]) * float(base_w[k]), 4),
                 "signals":      [tech_sigs, ict_sigs, mtf_sigs, sm_sigs, sent_sigs, ml_sigs][
                     list(scores.keys()).index(k)
                 ],

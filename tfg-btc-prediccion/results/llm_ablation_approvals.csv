@@ -1,0 +1,214 @@
+timestamp,score,direction,decision,reason
+2025-06-17 04:00:00+00:00,0.336,long,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2025-06-21 16:00:00+00:00,-0.361,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-06-21 20:00:00+00:00,-0.372,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-06-22 12:00:00+00:00,-0.404,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-06-22 16:00:00+00:00,-0.404,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-06-23 04:00:00+00:00,-0.324,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-06-23 08:00:00+00:00,-0.325,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-06-24 00:00:00+00:00,0.319,long,TRADE,Reciente sweep y BOS en dirección del trade refuerzan la decisión.
+2025-06-24 08:00:00+00:00,0.319,long,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-06-26 08:00:00+00:00,0.41,long,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-06-26 12:00:00+00:00,0.41,long,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-06-29 08:00:00+00:00,0.314,long,TRADE,Cerca de liquidity pool y con CHoCH reciente en dirección del trade.
+2025-06-29 20:00:00+00:00,0.439,long,TRADE,Sweep reciente y CHoCH en dirección del trade refuerzan la decisión.
+2025-06-30 00:00:00+00:00,0.35,long,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-06-30 08:00:00+00:00,0.338,long,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-06-30 16:00:00+00:00,0.436,long,TRADE,Sweep y CHoCH reciente en dirección del trade refuerzan el setup.
+2025-07-02 16:00:00+00:00,0.486,long,TRADE,Sweep reciente y confluence fuerte respaldan el setup.
+2025-07-02 20:00:00+00:00,0.32,long,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-07-03 04:00:00+00:00,0.35,long,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-07-03 16:00:00+00:00,0.35,long,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-07-06 12:00:00+00:00,0.328,long,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-07-06 20:00:00+00:00,0.456,long,TRADE,Hay un sweep reciente y confluence alta.
+2025-07-09 16:00:00+00:00,0.448,long,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-07-09 20:00:00+00:00,0.448,long,TRADE,Reciente sweep y CHoCH en dirección del trade con buena confluencia.
+2025-07-10 00:00:00+00:00,0.437,long,TRADE,Sweep y CHoCH reciente apoyan la dirección del trade.
+2025-07-10 04:00:00+00:00,0.437,long,TRADE,Sweep y CHoCH reciente en dirección del trade.
+2025-07-10 16:00:00+00:00,0.448,long,TRADE,Hay un sweep reciente y confluence alta.
+2025-07-10 20:00:00+00:00,0.448,long,TRADE,Setup tiene sweep reciente y confluence adecuada.
+2025-07-11 04:00:00+00:00,0.393,long,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-07-13 16:00:00+00:00,0.446,long,TRADE,Setup con confluencia fuerte y reciente CHoCH en dirección del trade.
+2025-07-13 20:00:00+00:00,0.421,long,TRADE,Sweep y CHoCH reciente en dirección del trade.
+2025-07-14 00:00:00+00:00,0.413,long,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-07-14 04:00:00+00:00,0.448,long,TRADE,Sweep y CHoCH reciente en dirección del trade.
+2025-07-14 08:00:00+00:00,0.437,long,TRADE,Sweep y CHoCH reciente en dirección del trade.
+2025-07-14 12:00:00+00:00,0.367,long,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-07-14 16:00:00+00:00,0.331,long,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2025-07-15 08:00:00+00:00,0.391,long,TRADE,Reciente CHoCH y tendencia alcista respaldan el setup.
+2025-07-15 20:00:00+00:00,0.366,long,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-07-18 08:00:00+00:00,0.314,long,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-07-18 20:00:00+00:00,0.375,long,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-07-19 08:00:00+00:00,0.305,long,TRADE,Reciente sweep y CHoCH en dirección del trade con zona discount.
+2025-07-19 20:00:00+00:00,0.326,long,TRADE,Setup tiene sweep reciente y está en zona discount.
+2025-07-20 12:00:00+00:00,0.434,long,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-07-21 00:00:00+00:00,0.36,long,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2025-07-21 04:00:00+00:00,0.464,long,TRADE,Setup tiene refuerzos cualitativos y buena confluencia.
+2025-07-21 20:00:00+00:00,0.337,long,TRADE,Reciente sweep y CHoCH en dirección del trade con zona discount.
+2025-07-22 00:00:00+00:00,0.344,long,TRADE,Setup en discount zone con reciente CHoCH y sweep.
+2025-07-22 12:00:00+00:00,0.336,long,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-07-23 08:00:00+00:00,0.321,long,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-07-23 12:00:00+00:00,0.46,long,TRADE,Reciente sweep y CHoCH en dirección del trade con buena confluencia.
+2025-07-23 16:00:00+00:00,0.458,long,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-07-23 20:00:00+00:00,0.322,long,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-07-24 04:00:00+00:00,0.414,long,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-07-24 12:00:00+00:00,0.315,long,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2025-07-24 16:00:00+00:00,0.322,long,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2025-07-25 20:00:00+00:00,0.372,long,TRADE,Hay refuerzos cualitativos fuertes con reciente sweep y BOS en dirección del trade.
+2025-07-26 00:00:00+00:00,0.363,long,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-07-26 08:00:00+00:00,0.426,long,TRADE,Hay refuerzos cualitativos con reciente sweep y BOS en dirección del trade.
+2025-07-29 00:00:00+00:00,0.314,long,TRADE,Sweep reciente refuerza la dirección LONG.
+2025-07-29 04:00:00+00:00,0.315,long,TRADE,Sweep reciente refuerza la dirección del trade.
+2025-07-29 16:00:00+00:00,0.364,long,TRADE,Setup tiene refuerzos cualitativos y está cerca de una liquidity pool.
+2025-07-29 20:00:00+00:00,0.347,long,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-07-30 20:00:00+00:00,0.339,long,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-08-01 20:00:00+00:00,-0.304,short,TRADE,Reciente CHoCH y en discount zone con intent long.
+2025-08-02 00:00:00+00:00,-0.325,short,TRADE,Reciente CHoCH y en discount zone con intent long.
+2025-08-02 04:00:00+00:00,-0.312,short,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-08-02 16:00:00+00:00,-0.323,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-08-02 20:00:00+00:00,-0.343,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-08-07 08:00:00+00:00,0.317,long,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-08-07 12:00:00+00:00,0.319,long,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-08-07 16:00:00+00:00,0.461,long,TRADE,Reciente sweep y CHoCH refuerzan el setup a pesar de estar en zona premium.
+2025-08-07 20:00:00+00:00,0.434,long,TRADE,Sweep y CHoCH reciente refuerzan el setup.
+2025-08-08 00:00:00+00:00,0.301,long,TRADE,Sweep reciente y CHoCH en dirección del trade refuerzan la decisión.
+2025-08-08 04:00:00+00:00,0.327,long,TRADE,Sweep y CHoCH reciente apoyan la dirección del trade.
+2025-08-08 08:00:00+00:00,0.3,long,TRADE,Sweep reciente y CHoCH en dirección del trade refuerzan la decisión.
+2025-08-08 12:00:00+00:00,0.324,long,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-08-10 00:00:00+00:00,0.364,long,TRADE,"Cerca de liquidity pool y con reciente sweep, BOS y CHoCH en dirección del trade."
+2025-08-10 08:00:00+00:00,0.311,long,TRADE,Cerca de liquidity pool y con reciente sweep en dirección del trade.
+2025-08-11 00:00:00+00:00,0.393,long,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-08-11 04:00:00+00:00,0.393,long,TRADE,Sweep y BOS recientes refuerzan la dirección del trade.
+2025-08-11 08:00:00+00:00,0.393,long,TRADE,Sweep y BOS recientes refuerzan la dirección LONG.
+2025-08-11 12:00:00+00:00,0.341,long,TRADE,Cerca de liquidity pool y con sweep/BOS reciente en dirección del trade.
+2025-08-13 16:00:00+00:00,0.408,long,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-08-13 20:00:00+00:00,0.408,long,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-08-14 08:00:00+00:00,0.312,long,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-08-15 00:00:00+00:00,0.377,long,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-08-15 04:00:00+00:00,0.38,long,TRADE,Reciente sweep y BOS en dirección del trade refuerzan la decisión.
+2025-08-15 08:00:00+00:00,0.371,long,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-08-18 04:00:00+00:00,-0.304,short,TRADE,Hay un sweep reciente y está en zona discount.
+2025-08-18 08:00:00+00:00,-0.304,short,TRADE,Sweep y CHoCH reciente en dirección del trade.
+2025-08-19 12:00:00+00:00,-0.418,short,TRADE,Sweep y BOS recientes refuerzan la dirección del trade.
+2025-08-19 16:00:00+00:00,-0.307,short,TRADE,Cerca de liquidity pool y reciente sweep/BOS/CHoCH refuerzan el setup.
+2025-08-20 00:00:00+00:00,-0.412,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-08-20 08:00:00+00:00,-0.437,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-08-20 12:00:00+00:00,-0.324,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-08-24 20:00:00+00:00,-0.339,short,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-08-25 00:00:00+00:00,-0.314,short,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-08-25 04:00:00+00:00,-0.448,short,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-08-25 20:00:00+00:00,-0.404,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-08-26 00:00:00+00:00,-0.393,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-08-26 04:00:00+00:00,-0.393,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-08-26 08:00:00+00:00,-0.393,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-08-30 16:00:00+00:00,-0.305,short,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-09-02 08:00:00+00:00,-0.374,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-09-11 20:00:00+00:00,0.393,long,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-09-12 16:00:00+00:00,0.393,long,TRADE,Sweep y BOS recientes refuerzan la dirección del trade.
+2025-09-13 00:00:00+00:00,0.3,long,TRADE,Sweep y BOS recientes en dirección del trade.
+2025-09-13 04:00:00+00:00,0.321,long,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-09-13 08:00:00+00:00,0.321,long,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-09-13 12:00:00+00:00,0.326,long,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-09-16 04:00:00+00:00,0.437,long,TRADE,Sweep y CHoCH reciente en dirección del trade.
+2025-09-16 12:00:00+00:00,0.45,long,TRADE,Sweep y CHoCH reciente refuerzan la dirección del trade.
+2025-09-16 16:00:00+00:00,0.361,long,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2025-09-16 20:00:00+00:00,0.35,long,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2025-09-17 04:00:00+00:00,0.322,long,TRADE,Hay refuerzos cualitativos fuertes y la tendencia es favorable.
+2025-09-18 00:00:00+00:00,0.322,long,TRADE,"Cerca de liquidity pool y con reciente sweep, BOS y CHoCH en dirección del trade."
+2025-09-18 12:00:00+00:00,0.35,long,TRADE,"Cerca de liquidity pool y con reciente sweep, BOS y CHoCH en dirección del trade."
+2025-09-22 08:00:00+00:00,-0.304,short,TRADE,Sweep y CHoCH reciente en dirección del trade.
+2025-09-25 20:00:00+00:00,-0.448,short,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-10-01 08:00:00+00:00,0.418,long,TRADE,Hay refuerzos cualitativos fuertes con sweep y BOS recientes.
+2025-10-01 12:00:00+00:00,0.307,long,TRADE,Cerca de liquidity pool y con reciente sweep/BOS/CHoCH en dirección del trade.
+2025-10-01 20:00:00+00:00,0.393,long,TRADE,Hay refuerzos cualitativos con sweep y BOS recientes en dirección del trade.
+2025-10-02 12:00:00+00:00,0.404,long,TRADE,Hay un sweep y BOS reciente en dirección del trade.
+2025-10-05 04:00:00+00:00,0.393,long,TRADE,Sweep y BOS recientes refuerzan la dirección del trade.
+2025-10-14 00:00:00+00:00,-0.428,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-10-14 04:00:00+00:00,-0.465,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-10-14 08:00:00+00:00,-0.466,short,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2025-10-14 16:00:00+00:00,-0.424,short,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-10-15 00:00:00+00:00,-0.445,short,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2025-10-15 16:00:00+00:00,-0.316,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-10-16 00:00:00+00:00,-0.315,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-10-17 04:00:00+00:00,-0.448,short,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-10-27 08:00:00+00:00,0.334,long,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2025-10-29 16:00:00+00:00,-0.348,short,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-10-30 08:00:00+00:00,-0.312,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-11-02 00:00:00+00:00,-0.307,short,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2025-11-02 12:00:00+00:00,-0.413,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-11-13 16:00:00+00:00,-0.376,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-11-25 00:00:00+00:00,-0.355,short,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2025-12-01 00:00:00+00:00,-0.319,short,TRADE,Sweep y BOS recientes refuerzan la dirección del trade.
+2025-12-01 16:00:00+00:00,-0.448,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-12-01 20:00:00+00:00,-0.303,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-12-02 04:00:00+00:00,-0.314,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-12-07 08:00:00+00:00,-0.416,short,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2025-12-10 20:00:00+00:00,-0.338,short,TRADE,Reciente sweep y BOS en dirección del trade refuerzan el setup.
+2025-12-11 08:00:00+00:00,-0.33,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-12-15 12:00:00+00:00,-0.376,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-12-15 16:00:00+00:00,-0.376,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-12-15 20:00:00+00:00,-0.365,short,TRADE,Hay refuerzos cualitativos con reciente sweep y BOS en dirección del trade.
+2025-12-16 00:00:00+00:00,-0.365,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2025-12-21 08:00:00+00:00,-0.301,short,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2025-12-23 00:00:00+00:00,-0.434,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-12-23 04:00:00+00:00,-0.423,short,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2025-12-23 12:00:00+00:00,-0.475,short,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2025-12-23 16:00:00+00:00,-0.326,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-12-23 20:00:00+00:00,-0.478,short,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2025-12-24 00:00:00+00:00,-0.483,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-12-24 08:00:00+00:00,-0.316,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-12-24 20:00:00+00:00,-0.318,short,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2025-12-25 08:00:00+00:00,-0.313,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-12-25 20:00:00+00:00,-0.427,short,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2025-12-26 12:00:00+00:00,-0.395,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-12-26 16:00:00+00:00,-0.304,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-12-26 20:00:00+00:00,-0.305,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-12-27 00:00:00+00:00,-0.326,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2025-12-30 08:00:00+00:00,-0.319,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2026-01-04 04:00:00+00:00,0.404,long,TRADE,Hay refuerzos cualitativos con reciente sweep y BOS en dirección del trade.
+2026-01-05 00:00:00+00:00,0.415,long,TRADE,BOS reciente apoya la dirección del trade.
+2026-01-05 08:00:00+00:00,0.404,long,TRADE,BOS reciente en dirección del trade y confluence aceptable.
+2026-01-05 12:00:00+00:00,0.415,long,TRADE,BOS reciente en dirección del trade y confluence aceptable.
+2026-01-05 16:00:00+00:00,0.415,long,TRADE,BOS reciente y confluence adecuada respaldan el trade.
+2026-01-05 20:00:00+00:00,0.404,long,TRADE,BOS reciente en dirección del trade y confluence score aceptable.
+2026-01-06 00:00:00+00:00,0.412,long,TRADE,BOS reciente apoya la dirección del trade.
+2026-01-13 00:00:00+00:00,0.321,long,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2026-02-11 00:00:00+00:00,-0.447,short,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2026-02-11 04:00:00+00:00,-0.392,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2026-02-11 08:00:00+00:00,-0.365,short,TRADE,Reciente sweep y BOS en dirección del trade.
+2026-02-17 20:00:00+00:00,-0.305,short,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2026-02-21 20:00:00+00:00,-0.363,short,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2026-03-04 12:00:00+00:00,0.432,long,TRADE,Hay refuerzos cualitativos fuertes con sweep y BOS recientes.
+2026-03-04 16:00:00+00:00,0.432,long,TRADE,Reciente sweep y BOS en dirección del trade.
+2026-03-04 20:00:00+00:00,0.447,long,TRADE,Reciente sweep y BOS en dirección del trade.
+2026-03-05 08:00:00+00:00,0.339,long,TRADE,Reciente sweep y BOS en dirección del trade.
+2026-03-13 04:00:00+00:00,0.347,long,TRADE,Sweep reciente y CHoCH en dirección del trade refuerzan la decisión.
+2026-03-13 08:00:00+00:00,0.476,long,TRADE,Reciente sweep y CHoCH en dirección del trade con buena confluence.
+2026-03-13 12:00:00+00:00,0.358,long,TRADE,Sweep reciente y CHoCH en dirección del trade refuerzan la decisión.
+2026-03-16 20:00:00+00:00,0.404,long,TRADE,Hay un sweep y BOS reciente en dirección del trade.
+2026-03-17 00:00:00+00:00,0.415,long,TRADE,Sweep y BOS recientes refuerzan la dirección del trade.
+2026-03-17 04:00:00+00:00,0.326,long,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2026-03-17 16:00:00+00:00,0.311,long,TRADE,Hay un sweep y BOS reciente en dirección del trade.
+2026-03-22 04:00:00+00:00,-0.447,short,TRADE,Hay un sweep reciente y está en una zona discount.
+2026-03-22 08:00:00+00:00,-0.421,short,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2026-03-22 20:00:00+00:00,-0.433,short,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2026-03-23 00:00:00+00:00,-0.433,short,TRADE,Sweep y CHoCH reciente refuerzan la dirección del trade.
+2026-03-31 12:00:00+00:00,-0.419,short,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2026-04-02 16:00:00+00:00,-0.444,short,TRADE,Sweep y CHoCH reciente en dirección del trade.
+2026-04-04 16:00:00+00:00,-0.419,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2026-04-04 20:00:00+00:00,-0.413,short,TRADE,Cerca de liquidity pool y reciente CHoCH refuerzan el setup.
+2026-04-05 12:00:00+00:00,-0.382,short,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2026-04-07 20:00:00+00:00,0.327,long,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2026-04-09 08:00:00+00:00,0.353,long,TRADE,Sweep y BOS recientes apoyan la dirección del trade.
+2026-04-10 16:00:00+00:00,0.35,long,TRADE,Cerca de liquidity pool y con reciente sweep en dirección del trade.
+2026-04-11 00:00:00+00:00,0.331,long,TRADE,Sweep y BOS recientes refuerzan la dirección del trade.
+2026-04-11 16:00:00+00:00,0.323,long,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2026-04-13 12:00:00+00:00,0.404,long,TRADE,Hay un sweep reciente y CHoCH en dirección del trade.
+2026-04-13 20:00:00+00:00,0.514,long,TRADE,Reciente sweep y CHoCH en dirección del trade.
+2026-04-14 00:00:00+00:00,0.486,long,TRADE,Hay un sweep reciente y confluence alta.
+2026-04-14 04:00:00+00:00,0.361,long,TRADE,Cerca de liquidity pool y reciente sweep refuerzan el setup.
+2026-04-14 08:00:00+00:00,0.459,long,TRADE,Sweep y CHoCH reciente en dirección del trade refuerzan el setup.
+2026-04-16 04:00:00+00:00,0.345,long,TRADE,Sweep y CHoCH reciente en dirección del trade refuerzan el setup.
+2026-04-16 08:00:00+00:00,0.308,long,TRADE,Sweep reciente y tendencia ICT alcista refuerzan el setup.
+2026-04-16 12:00:00+00:00,0.447,long,TRADE,Setup tiene refuerzos cualitativos con sweep y CHoCH reciente.
+2026-04-17 00:00:00+00:00,0.307,long,TRADE,Sweep reciente refuerza el setup a pesar de estar en premium zone.
